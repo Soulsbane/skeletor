@@ -1,0 +1,5 @@
+name "skeletor"
+description "A minimal D application."
+copyright "Copyright © 2016, soulsbane"
+authors "soulsbane"
+dependency "raijin" version="*"
