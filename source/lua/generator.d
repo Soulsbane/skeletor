@@ -3,6 +3,7 @@ module lua.generator;
 import luad.all;
 
 import lua.api.path;
+import lua.api.filereader;
 
 struct LuaGenerator
 {
@@ -38,13 +39,13 @@ struct LuaGenerator
 private:
 	void setupAPIFunctions()
 	{
-		/*lua_["AppConfig"] = lua_.newTable;
+		//lua_["AppConfig"] = lua_.newTable;
 
 		lua_["FileReader"] = lua_.newTable;
-		lua_["FileReader", "ReadText"] = &api.filereader.readText;
-		lua_["FileReader", "GetLines"] = &api.filereader.getLines;
+		lua_["FileReader", "ReadText"] = &lua.api.filereader.readText;
+		lua_["FileReader", "GetLines"] = &lua.api.filereader.getLines;
 
-		lua_["FileUtils"] = lua_.newTable;
+		/*lua_["FileUtils"] = lua_.newTable;
 		lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
 		lua_["FileUtils", "CopyFileToOutputDir"] = &api.fileutils.copyFileToOutputDir;
 		lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
