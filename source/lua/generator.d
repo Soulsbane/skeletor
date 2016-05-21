@@ -2,7 +2,7 @@ module lua.generator;
 
 import luad.all;
 
-import lua.api;
+import lua.api.path;
 
 struct LuaGenerator
 {
@@ -52,9 +52,10 @@ private:
 		lua_["FileUtils", "RegisterFileForRemoval"] = &api.fileutils.registerFileForRemoval;
 */
 		lua_["Path"] = lua_.newTable;
-		lua_["Path", "GetGeneratorDir"] = &lua.api.getGeneratorDir;
-		lua_["Path", "GetGeneratorLanguageDir"] = &lua.api.getGeneratorLanguageDir;
-		lua_["Path", "GetGeneratorDirFor"] = &lua.api.getGeneratorDirFor;
+		lua_["Path", "GetGeneratorDir"] = &lua.api.path.getGeneratorDir;
+		lua_["Path", "GetGeneratorLanguageDir"] = &lua.api.path.getGeneratorLanguageDir;
+		lua_["Path", "GetGeneratorDirFor"] = &lua.api.path.getGeneratorDirFor;
+		lua_["Path", "GetOutputDir"] = &lua.api.path.getOutputDir;
 	}
 
 private:
