@@ -4,6 +4,7 @@ import luad.all;
 
 import lua.api.path;
 import lua.api.filereader;
+import lua.api.fileutils;
 
 struct LuaGenerator
 {
@@ -45,10 +46,10 @@ private:
 		lua_["FileReader", "ReadText"] = &lua.api.filereader.readText;
 		lua_["FileReader", "GetLines"] = &lua.api.filereader.getLines;
 
-		/*lua_["FileUtils"] = lua_.newTable;
-		lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
-		lua_["FileUtils", "CopyFileToOutputDir"] = &api.fileutils.copyFileToOutputDir;
-		lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
+		lua_["FileUtils"] = lua_.newTable;
+		lua_["FileUtils", "CopyFileTo"] = &lua.api.fileutils.copyFileTo;
+		lua_["FileUtils", "CopyFileToOutputDir"] = &lua.api.fileutils.copyFileToOutputDir;
+		/*lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
 		lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
 		lua_["FileUtils", "RegisterFileForRemoval"] = &api.fileutils.registerFileForRemoval;
 */
