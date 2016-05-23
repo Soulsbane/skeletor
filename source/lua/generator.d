@@ -49,8 +49,8 @@ private:
 		lua_["FileUtils"] = lua_.newTable;
 		lua_["FileUtils", "CopyFileTo"] = &lua.api.fileutils.copyFileTo;
 		lua_["FileUtils", "CopyFileToOutputDir"] = &lua.api.fileutils.copyFileToOutputDir;
+		lua_["FileUtils", "RemoveFileFromOutputDir"] = &lua.api.fileutils.removeFileFromOutputDir;
 		/*lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
-		lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
 		lua_["FileUtils", "RegisterFileForRemoval"] = &api.fileutils.registerFileForRemoval;
 */
 		lua_["Path"] = lua_.newTable;
