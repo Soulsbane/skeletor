@@ -16,6 +16,9 @@ struct LuaGenerator
 		lua_ = new LuaState;
 		lua_.openLibs();
 		lua_.setPanicHandler(&panic);
+
+		setupAPIFunctions();
+		setupPackagePaths();
 	}
 
 	static void panic(LuaState lua, in char[] error)
@@ -54,10 +57,26 @@ private:
 		lua_["FileUtils", "RegisterFileForRemoval"] = &api.fileutils.registerFileForRemoval;
 */
 		lua_["Path"] = lua_.newTable;
-		lua_["Path", "GetGeneratorDir"] = &lua.api.path.getGeneratorDir;
-		lua_["Path", "GetGeneratorLanguageDir"] = &lua.api.path.getGeneratorLanguageDir;
+		lua_["Path", "GetBaseGeneratorDir"] = &lua.api.path.getBaseGeneratorDir;
 		lua_["Path", "GetGeneratorDirFor"] = &lua.api.path.getGeneratorDirFor;
+		lua_["Path", "GetGeneratorDir"] = &getGeneratorDir;
+		lua_["Path", "GetGeneratorLanguageDir"] = &lua.api.path.getGeneratorLanguageDir;
 		lua_["Path", "GetOutputDir"] = &lua.api.path.getOutputDir;
+	}
+	
+	// May need to be static. This requires for testing on the lua side.
+	string getGeneratorDir()
+	{
+		return getGeneratorDirFor(language_, generatorName_);
+	}
+
+	void setupPackagePaths()
+	{
+		import std.path : buildNormalizedPath;
+		string packagePath = buildNormalizedPath(getInstallDir(), "modules", "?.lua");
+
+		packagePath ~= ";" ~ buildNormalizedPath(getGeneratorDirFor(language_, generatorName_), "modules", "?.lua");
+		lua_["package", "path"] = packagePath;
 	}
 
 private:

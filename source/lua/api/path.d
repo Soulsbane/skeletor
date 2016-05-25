@@ -3,7 +3,8 @@
 */
 module lua.api.path;
 
-import std.file : getcwd;
+import std.file : getcwd, thisExePath;
+import std.path : dirName;
 
 import raijin;
 
@@ -14,10 +15,15 @@ static this()
 	immutable string defaultConfigFileData = import("default-app.config");
 	_Config = AppConfig("Raijinsoft", "skeletor", defaultConfigFileData);
 
-	ensurePathExists(getGeneratorDir());
+	ensurePathExists(getBaseGeneratorDir());
 }
 
-string getGeneratorDir()
+string getInstallDir()
+{
+	return dirName(thisExePath());
+}
+
+string getBaseGeneratorDir()
 {
 	return _Config.path.getConfigDir("generators");
 }
