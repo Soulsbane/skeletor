@@ -62,7 +62,7 @@ struct LuaGenerator
 private:
 	void setupAPIFunctions()
 	{
-		//lua_["AppConfig"] = lua_.newTable;
+		lua_["Globals"] = lua_.newTable;
 
 		lua_["FileReader"] = lua_.newTable;
 		lua_["FileReader", "ReadText"] = &lua.api.filereader.readText;
@@ -81,12 +81,20 @@ private:
 		lua_["Path", "GetGeneratorDir"] = &getGeneratorDir;
 		lua_["Path", "GetGeneratorLanguageDir"] = &lua.api.path.getGeneratorLanguageDir;
 		lua_["Path", "GetOutputDir"] = &lua.api.path.getOutputDir;
+		lua_["Path", "GetGeneratorModuleDir"] = &getGeneratorModuleDir;
+		lua_["Path", "GetModuleDir"] = &lua.api.path.getModuleDir;
+		lua_["Path", "Normalize"] = &lua.api.path.getNormalizedPath;
 	}
 
 	// May need to be static. This requires for testing on the lua side.
 	string getGeneratorDir()
 	{
 		return getGeneratorDirFor(language_, generatorName_);
+	}
+
+	string getGeneratorModuleDir()
+	{
+		return buildNormalizedPath(getGeneratorDir(), "modules");
 	}
 
 	void setupPackagePaths()

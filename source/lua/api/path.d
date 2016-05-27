@@ -63,3 +63,14 @@ string getOutputDir()
 {
 	return getcwd();
 }
+
+
+string getModuleDir()
+{
+	return buildNormalizedPath(getInstallDir(), "modules");
+}
+
+string getNormalizedPath(const(char)[][] params...)
+{
+	return buildNormalizedPath(params);
+}
