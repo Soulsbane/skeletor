@@ -1,5 +1,8 @@
 module lua.generator;
 
+import std.path : buildNormalizedPath;
+import std.file : exists;
+
 import luad.all;
 
 import lua.api.path;
@@ -25,6 +28,22 @@ struct LuaGenerator
 	{
 		import std.stdio : writeln;
 		writeln("Error in generator code!\n", error, "\n");
+	}
+
+	bool create()
+	{
+		immutable string fileName = buildNormalizedPath(getGeneratorDir(), generatorName_) ~ ".lua";
+
+		if(fileName.exists)
+		{
+			auto addonFile = lua_.loadFile(fileName);
+			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
+
+			callFunction("OnCreate");
+			return true;
+		}
+
+		return false;
 	}
 
 	void callFunction(const string name)
@@ -63,7 +82,7 @@ private:
 		lua_["Path", "GetGeneratorLanguageDir"] = &lua.api.path.getGeneratorLanguageDir;
 		lua_["Path", "GetOutputDir"] = &lua.api.path.getOutputDir;
 	}
-	
+
 	// May need to be static. This requires for testing on the lua side.
 	string getGeneratorDir()
 	{

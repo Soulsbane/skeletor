@@ -1,3 +1,6 @@
+/**
+	Provides various file reading related API functions for use with Lua.
+*/
 module lua.api.filereader;
 
 string readText(const string fileName)

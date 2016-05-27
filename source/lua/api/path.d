@@ -1,10 +1,10 @@
 /**
-	Provides various API functions for use with Lua.
+	Provides various path related API functions for use with Lua.
 */
 module lua.api.path;
 
 import std.file : getcwd, thisExePath;
-import std.path : dirName;
+import std.path : dirName, buildNormalizedPath;
 
 import raijin;
 
@@ -25,17 +25,38 @@ string getInstallDir()
 
 string getBaseGeneratorDir()
 {
-	return _Config.path.getConfigDir("generators");
+	debug
+	{
+		return buildNormalizedPath(getInstallDir(), "generators");
+	}
+	else
+	{
+		return _Config.path.getConfigDir("generators");
+	}
 }
 
 string getGeneratorLanguageDir(const string language = string.init)
 {
-	return _Config.path.getConfigDir("generators", language);
+	debug
+	{
+		return buildNormalizedPath(getInstallDir(), "generators", language);
+	}
+	else
+	{
+		return _Config.path.getConfigDir("generators", language);
+	}
 }
 
 string getGeneratorDirFor(const string language = string.init, const string generatorName = string.init)
 {
-	return _Config.path.getConfigDir("generators", language, generatorName);
+	debug
+	{
+		return buildNormalizedPath(getInstallDir(), "generators", language, generatorName);
+	}
+	else
+	{
+		return _Config.path.getConfigDir("generators", language, generatorName);
+	}
 }
 
 string getOutputDir()

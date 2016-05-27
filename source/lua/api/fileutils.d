@@ -1,3 +1,6 @@
+/**
+	Provides various file utility related API functions for use with Lua.
+*/
 module lua.api.fileutils;
 
 import std.file : copy, PreserveAttributes, getcwd, exists, remove;
