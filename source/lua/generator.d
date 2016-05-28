@@ -63,8 +63,6 @@ struct LuaGenerator
 private:
 	void setupAPIFunctions()
 	{
-		lua_["Globals"] = lua_.newTable;
-
 		lua_["FileReader"] = lua_.newTable;
 		lua_["FileReader", "ReadText"] = &lua.api.filereader.readText;
 		lua_["FileReader", "GetLines"] = &lua.api.filereader.getLines;
