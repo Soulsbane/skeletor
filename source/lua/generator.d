@@ -5,6 +5,7 @@ import std.file : exists;
 
 import luad.all;
 
+import inputcollector;
 import lua.api.path;
 import lua.api.filereader;
 import lua.api.filewriter;
@@ -31,7 +32,7 @@ struct LuaGenerator
 		writeln("Error in generator code!\n", error, "\n");
 	}
 
-	bool create()
+	bool create(CollectedValues values)
 	{
 		immutable string fileName = buildNormalizedPath(getGeneratorDir(), generatorName_) ~ ".lua";
 
