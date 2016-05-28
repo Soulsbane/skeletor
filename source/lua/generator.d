@@ -42,7 +42,7 @@ struct LuaGenerator
 
 			lua_["Author"] = values.author;
 			lua_["Description"] = values.description;
-			
+
 			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
 
 			callFunction("OnCreate");
