@@ -4,3 +4,6 @@ function OnCreate()
 	print("Called d.raijin generator: ", _G.Author)
 	print("Year is ", year)
 end
+
+function OnDestroy()
+end

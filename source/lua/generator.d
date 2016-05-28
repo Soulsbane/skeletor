@@ -26,6 +26,11 @@ struct LuaGenerator
 		setupPackagePaths();
 	}
 
+	~this()
+	{
+		callFunction("OnDestroy");
+	}
+
 	static void panic(LuaState lua, in char[] error)
 	{
 		import std.stdio : writeln;
