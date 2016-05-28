@@ -39,6 +39,10 @@ struct LuaGenerator
 		if(fileName.exists)
 		{
 			auto addonFile = lua_.loadFile(fileName);
+
+			lua_["Author"] = values.author;
+			lua_["Description"] = values.description;
+			
 			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
 
 			callFunction("OnCreate");
@@ -75,9 +79,10 @@ private:
 		lua_["FileUtils", "CopyFileTo"] = &lua.api.fileutils.copyFileTo;
 		lua_["FileUtils", "CopyFileToOutputDir"] = &lua.api.fileutils.copyFileToOutputDir;
 		lua_["FileUtils", "RemoveFileFromOutputDir"] = &lua.api.fileutils.removeFileFromOutputDir;
-		/*lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
-		lua_["FileUtils", "RegisterFileForRemoval"] = &api.fileutils.registerFileForRemoval;
-*/
+
+		lua_["Input"] = lua_.newTable;
+		lua_["Input", "UserInputPrompt"] = &inputcollector.userInputPrompt;
+
 		lua_["Path"] = lua_.newTable;
 		lua_["Path", "GetBaseGeneratorDir"] = &lua.api.path.getBaseGeneratorDir;
 		lua_["Path", "GetGeneratorDirFor"] = &lua.api.path.getGeneratorDirFor;
