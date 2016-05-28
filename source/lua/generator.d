@@ -7,6 +7,7 @@ import luad.all;
 
 import lua.api.path;
 import lua.api.filereader;
+import lua.api.filewriter;
 import lua.api.fileutils;
 
 struct LuaGenerator
@@ -67,6 +68,9 @@ private:
 		lua_["FileReader"] = lua_.newTable;
 		lua_["FileReader", "ReadText"] = &lua.api.filereader.readText;
 		lua_["FileReader", "GetLines"] = &lua.api.filereader.getLines;
+
+		lua_["FileWriter"] = lua_.newTable;
+		lua_["FileWriter", "CreateOutputFile"] = &lua.api.filewriter.createOutputFile;
 
 		lua_["FileUtils"] = lua_.newTable;
 		lua_["FileUtils", "CopyFileTo"] = &lua.api.fileutils.copyFileTo;
