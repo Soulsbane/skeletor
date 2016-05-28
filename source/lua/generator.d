@@ -87,6 +87,7 @@ private:
 		lua_["Path", "GetOutputDir"] = &lua.api.path.getOutputDir;
 		lua_["Path", "GetGeneratorModuleDir"] = &getGeneratorModuleDir;
 		lua_["Path", "GetModuleDir"] = &lua.api.path.getModuleDir;
+		lua_["Path", "GetGeneratorTemplatesDir"] = &getGeneratorTemplatesDir;
 		lua_["Path", "Normalize"] = &lua.api.path.getNormalizedPath;
 	}
 
@@ -107,6 +108,11 @@ private:
 	string getGeneratorModuleDir()
 	{
 		return buildNormalizedPath(getGeneratorDir(), "modules");
+	}
+
+	string getGeneratorTemplatesDir()
+	{
+		return buildNormalizedPath(getGeneratorDir(), "templates");
 	}
 
 
