@@ -90,7 +90,15 @@ private:
 		lua_["Path", "Normalize"] = &lua.api.path.getNormalizedPath;
 	}
 
-	// May need to be static. This requires for testing on the lua side.
+	void setupPackagePaths()
+	{
+		import std.path : buildNormalizedPath;
+		string packagePath = buildNormalizedPath(getInstallDir(), "modules", "?.lua");
+
+		packagePath ~= ";" ~ buildNormalizedPath(getGeneratorDirFor(language_, generatorName_), "modules", "?.lua");
+		lua_["package", "path"] = packagePath;
+	}
+
 	string getGeneratorDir()
 	{
 		return getGeneratorDirFor(language_, generatorName_);
@@ -101,14 +109,6 @@ private:
 		return buildNormalizedPath(getGeneratorDir(), "modules");
 	}
 
-	void setupPackagePaths()
-	{
-		import std.path : buildNormalizedPath;
-		string packagePath = buildNormalizedPath(getInstallDir(), "modules", "?.lua");
-
-		packagePath ~= ";" ~ buildNormalizedPath(getGeneratorDirFor(language_, generatorName_), "modules", "?.lua");
-		lua_["package", "path"] = packagePath;
-	}
 
 private:
 	LuaState lua_;
