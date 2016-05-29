@@ -7,9 +7,10 @@ import std.typecons;
 import std.stdio;
 import std.string;
 
-alias CollectedValues = Tuple!(string, "author", string, "description");
+alias CollectedValues = string[string];
+private CollectedValues _Values;
 
-string userInputPrompt(const string msg, string defaultValue = string.init)
+string userInputPrompt(const string globalVarName, const string msg, string defaultValue = string.init)
 {
 	write(msg);
 	string input = readln();
@@ -19,15 +20,15 @@ string userInputPrompt(const string msg, string defaultValue = string.init)
 		input = defaultValue;
 	}
 
+	_Values[globalVarName] = input.strip;
+
 	return input.strip;
 }
 
 CollectedValues collectValues()
 {
-	CollectedValues values;
+	userInputPrompt("Author", "Author: ", "Paul Crane");
+	userInputPrompt("Description", "Description: ");
 
-	values.author = userInputPrompt("Author: ", "Paul Crane");
-	values.description = userInputPrompt("Description: ");
-
-	return values;
+	return _Values;
 }

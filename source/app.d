@@ -16,7 +16,7 @@ void main(string[] arguments)
 
 	CollectedValues values = collectValues();
 	LuaGenerator generator = LuaGenerator(args.asString("language"), args.asString("generator"));
-	immutable bool succeeded = generator.create(values);
+	immutable bool succeeded = generator.process(values);
 
 	if(!succeeded)
 	{
