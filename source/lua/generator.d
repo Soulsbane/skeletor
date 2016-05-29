@@ -37,7 +37,7 @@ struct LuaGenerator
 		writeln("Error in generator code!\n", error, "\n");
 	}
 
-	bool process(CollectedValues values)
+	bool create()
 	{
 		immutable string fileName = buildNormalizedPath(getGeneratorDir(), generatorName_) ~ ".lua";
 
@@ -46,20 +46,22 @@ struct LuaGenerator
 			auto addonFile = lua_.loadFile(fileName);
 
 			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
-
 			callFunction("OnCreate");
-
-			foreach(key, value; values)
-			{
-				lua_[key] = value;
-			}
-
-			callFunction("OnProcessInput", values);
 
 			return true;
 		}
 
 		return false;
+	}
+
+	void processInput(CollectedValues values)
+	{
+		foreach(key, value; values)
+		{
+			lua_[key] = value;
+		}
+
+		callFunction("OnProcessInput", values);
 	}
 
 	void callFunction(const string name)
