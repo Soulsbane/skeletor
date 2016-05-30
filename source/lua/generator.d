@@ -44,20 +44,14 @@ struct LuaGenerator
 
 	bool create()
 	{
-		immutable string defaultPromptsFile = import("default-prompts.lua");
-
 		immutable string fileName = buildNormalizedPath(getGeneratorDir(), generatorName_) ~ ".lua";
-		immutable string promptsFilePath = _Config.getConfigDir("config") ~ "prompts.lua";
-
-		ensureFileExists(promptsFilePath, defaultPromptsFile);
-		auto promptsFile = lua_.loadFile(promptsFilePath);
+		//FIXME: Generator won't be found in release mode yet since it isn't extracted.
 
 		if(fileName.exists)
 		{
 			auto addonFile = lua_.loadFile(fileName);
 
-			promptsFile(); // Handles the default prompts(Author, Description etc.)
-
+			loadPromptsFile();
 			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
 			callFunction("OnCreate");
 
@@ -67,8 +61,10 @@ struct LuaGenerator
 		return false;
 	}
 
-	void processInput(CollectedValues values)
+	void processInput()
 	{
+		CollectedValues values = collectValues();
+
 		foreach(key, value; values)
 		{
 			lua_[key] = value;
@@ -99,6 +95,26 @@ struct LuaGenerator
 	}
 
 private:
+
+	void loadPromptsFile()
+	{
+		immutable string defaultPromptsFile = import("default-prompts.lua");
+
+		debug
+		{
+			auto promptsFile = lua_.loadString(defaultPromptsFile);
+			promptsFile(); // Handles the default prompts(Author, Description etc.)
+		}
+		else
+		{
+			immutable string promptsFilePath = buildNormalizedPath(_Config.getConfigDir("config"), "prompts.lua");
+
+			ensureFileExists(promptsFilePath, defaultPromptsFile);
+			auto promptsFile = lua_.loadFile(promptsFilePath);
+			promptsFile(); // Handles the default prompts(Author, Description etc.)
+		}
+	}
+
 	void setupAPIFunctions()
 	{
 		lua_["FileReader"] = lua_.newTable;

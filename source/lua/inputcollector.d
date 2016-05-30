@@ -20,7 +20,7 @@ string userInputPrompt(const string globalVarName, const string msg, string defa
 	{
 		writef("%s [%s]: ", msg, defaultValue);
 	}
-	
+
 	string input = readln();
 
 	if(input == "\x0a") // Only enter was pressed use the default value instead.
@@ -35,8 +35,8 @@ string userInputPrompt(const string globalVarName, const string msg, string defa
 
 CollectedValues collectValues()
 {
-	userInputPrompt("Author", "Author ", "Paul Crane");
-	userInputPrompt("Description", "Description");
+	//userInputPrompt("Author", "Author ", "Paul Crane");
+	//userInputPrompt("Description", "Description");
 
 	return _Values;
 }

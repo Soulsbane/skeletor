@@ -14,13 +14,12 @@ void main(string[] arguments)
 	args.addCommand("generator", "raijin", "The name of the generator to use.");
 	args.process(arguments);
 
-	CollectedValues values = collectValues();
 	LuaGenerator generator = LuaGenerator(args.asString("language"), args.asString("generator"));
 	immutable bool succeeded = generator.create();
 
 	if(succeeded)
 	{
-		generator.processInput(values);
+		generator.processInput();
 	}
 	else
 	{
