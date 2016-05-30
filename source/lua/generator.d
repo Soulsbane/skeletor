@@ -3,6 +3,7 @@ module lua.generator;
 import std.path : buildNormalizedPath;
 import std.file : exists;
 
+import raijin.utils.file;
 import luad.all;
 
 import inputcollector;
@@ -24,6 +25,10 @@ struct LuaGenerator
 
 		setupAPIFunctions();
 		setupPackagePaths();
+
+		//TODO: Load init.lua(or another name) that will handle the default input instead of being hardcoded in D.
+		//auto initFile = lua_.loadFile(_Config.getConfigDir("config") ~ "init.lua");
+		//initFile();
 	}
 
 	~this()
@@ -39,11 +44,19 @@ struct LuaGenerator
 
 	bool create()
 	{
+		immutable string defaultPromptsFile = import("default-prompts.lua");
+
 		immutable string fileName = buildNormalizedPath(getGeneratorDir(), generatorName_) ~ ".lua";
+		immutable string promptsFilePath = _Config.getConfigDir("config") ~ "prompts.lua";
+
+		ensureFileExists(promptsFilePath, defaultPromptsFile);
+		auto promptsFile = lua_.loadFile(promptsFilePath);
 
 		if(fileName.exists)
 		{
 			auto addonFile = lua_.loadFile(fileName);
+
+			promptsFile(); // Handles the default prompts(Author, Description etc.)
 
 			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
 			callFunction("OnCreate");
