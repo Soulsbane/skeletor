@@ -5,6 +5,7 @@ import raijin;
 import inputcollector;
 import lua.generator;
 import lua.api.path;
+import lua.extractor;
 
 void main(string[] arguments)
 {
@@ -14,6 +15,7 @@ void main(string[] arguments)
 	args.addCommand("generator", "raijin", "The name of the generator to use.");
 	args.process(arguments);
 
+	extractGenerators();
 	LuaGenerator generator = LuaGenerator(args.asString("language"), args.asString("generator"));
 	immutable bool succeeded = generator.create();
 
