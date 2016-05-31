@@ -117,17 +117,15 @@ private:
 
 	void setupAPIFunctions()
 	{
-		lua_["FileReader"] = lua_.newTable;
-		lua_["FileReader", "ReadText"] = &lua.api.filereader.readText;
-		lua_["FileReader", "GetLines"] = &lua.api.filereader.getLines;
+		lua_["IO"] = lua_.newTable;
+		lua_["IO", "ReadText"] = &lua.api.filereader.readText;
+		lua_["IO", "GetLines"] = &lua.api.filereader.getLines;
 
-		lua_["FileWriter"] = lua_.newTable;
-		lua_["FileWriter", "CreateOutputFile"] = &lua.api.filewriter.createOutputFile;
+		lua_["IO", "CreateOutputFile"] = &lua.api.filewriter.createOutputFile;
 
-		lua_["FileUtils"] = lua_.newTable;
-		lua_["FileUtils", "CopyFileTo"] = &lua.api.fileutils.copyFileTo;
-		lua_["FileUtils", "CopyFileToOutputDir"] = &lua.api.fileutils.copyFileToOutputDir;
-		lua_["FileUtils", "RemoveFileFromOutputDir"] = &lua.api.fileutils.removeFileFromOutputDir;
+		lua_["IO", "CopyFileTo"] = &lua.api.fileutils.copyFileTo;
+		lua_["IO", "CopyFileToOutputDir"] = &lua.api.fileutils.copyFileToOutputDir;
+		lua_["IO", "RemoveFileFromOutputDir"] = &lua.api.fileutils.removeFileFromOutputDir;
 
 		lua_["Input"] = lua_.newTable;
 		lua_["Input", "UserInputPrompt"] = &inputcollector.userInputPrompt;
@@ -146,7 +144,6 @@ private:
 
 	void setupPackagePaths()
 	{
-		import std.path : buildNormalizedPath;
 		string packagePath = buildNormalizedPath(getInstallDir(), "modules", "?.lua");
 
 		packagePath ~= ";" ~ buildNormalizedPath(getGeneratorDirFor(language_, generatorName_), "modules", "?.lua");
@@ -167,7 +164,6 @@ private:
 	{
 		return buildNormalizedPath(getGeneratorDir(), "templates");
 	}
-
 
 private:
 	LuaState lua_;
