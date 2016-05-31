@@ -6,6 +6,7 @@ import std.file : exists;
 import raijin.utils.file;
 import luad.all;
 
+import config;
 import inputcollector;
 import lua.api.path;
 import lua.api.filereader;
@@ -45,7 +46,6 @@ struct LuaGenerator
 	bool create()
 	{
 		immutable string fileName = buildNormalizedPath(getGeneratorDir(), generatorName_) ~ ".lua";
-		//FIXME: Generator won't be found in release mode yet since it isn't extracted.
 
 		if(fileName.exists)
 		{

@@ -6,17 +6,7 @@ module lua.api.path;
 import std.file : getcwd, thisExePath;
 import std.path : dirName, buildNormalizedPath;
 
-import raijin;
-
-AppConfig _Config;
-
-static this()
-{
-	immutable string defaultConfigFileData = import("default-app.config");
-	_Config = AppConfig("Raijinsoft", "skeletor", defaultConfigFileData);
-
-	ensurePathExists(getBaseGeneratorDir());
-}
+import config;
 
 string getInstallDir()
 {
