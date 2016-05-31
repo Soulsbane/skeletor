@@ -35,8 +35,5 @@ string userInputPrompt(const string globalVarName, const string msg, string defa
 
 CollectedValues collectValues()
 {
-	//userInputPrompt("Author", "Author ", "Paul Crane");
-	//userInputPrompt("Description", "Description");
-
 	return _Values;
 }
