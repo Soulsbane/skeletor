@@ -7,6 +7,7 @@ import std.algorithm;
 import std.array;
 import std.typetuple;
 
+import raijin.utils;
 import lua.api.path;
 
 enum fileNames =
@@ -37,16 +38,8 @@ void extractGenerators()
 			immutable string filePath = dirName(buildNormalizedPath(getBaseGeneratorDir(), name));
 			immutable string pathWithFileName = buildNormalizedPath(getBaseGeneratorDir(), name);
 
-			if(!exists(filePath))
-			{
-				mkdirRecurse(filePath);
-			}
-
-			if(!exists(pathWithFileName))
-			{
-				auto fileHandle = File(pathWithFileName, "w");
-				fileHandle.write(import(name));
-			}
+			ensurePathExists(filePath);
+			ensureFileExists(pathWithFileName, import(name));
 		}
 	}
 }
