@@ -13,6 +13,9 @@ import lua.api.filereader;
 import lua.api.filewriter;
 import lua.api.fileutils;
 
+enum DEFAULT_PROMPTS_FILE_STRING = import("default-prompts.lua");
+enum DEFAULT_INIT_FILE_STRING = import("default-init.lua");
+
 struct LuaGenerator
 {
 	this(const string language, const string generatorName)
@@ -27,9 +30,7 @@ struct LuaGenerator
 		setupAPIFunctions();
 		setupPackagePaths();
 
-		//TODO: Load init.lua(or another name) that will handle the default input instead of being hardcoded in D.
-		//auto initFile = lua_.loadFile(_Config.getConfigDir("config") ~ "init.lua");
-		//initFile();
+		loadAndExecuteLuaFile(DEFAULT_INIT_FILE_STRING, "init.lua");
 	}
 
 	~this()
@@ -51,7 +52,7 @@ struct LuaGenerator
 		{
 			auto addonFile = lua_.loadFile(fileName);
 
-			loadPromptsFile();
+			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
 			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
 			callFunction("OnCreate");
 
@@ -95,23 +96,22 @@ struct LuaGenerator
 	}
 
 private:
-
-	void loadPromptsFile()
+	public void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)
 	{
-		immutable string defaultPromptsFile = import("default-prompts.lua");
+		immutable string defaultString = defaultFileString;
 
 		debug
 		{
-			auto promptsFile = lua_.loadString(defaultPromptsFile);
-			promptsFile(); // Handles the default prompts(Author, Description etc.)
+			auto loadedFile = lua_.loadString(defaultString);
+			loadedFile();
 		}
 		else
 		{
-			immutable string promptsFilePath = buildNormalizedPath(_Config.getConfigDir("config"), "prompts.lua");
+			immutable string generatedFilePath = buildNormalizedPath(_Config.getConfigDir("config"), generatedFileName);
 
-			ensureFileExists(promptsFilePath, defaultPromptsFile);
-			auto promptsFile = lua_.loadFile(promptsFilePath);
-			promptsFile(); // Handles the default prompts(Author, Description etc.)
+			ensureFileExists(generatedFilePath, defaultString);
+			auto loadedFile = lua_.loadFile(generatedFilePath);
+			loadedFile();
 		}
 	}
 
