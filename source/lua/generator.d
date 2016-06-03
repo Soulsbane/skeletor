@@ -30,6 +30,7 @@ struct LuaGenerator
 		setupAPIFunctions();
 		setupPackagePaths();
 
+		loadDefaultModules();
 		loadAndExecuteLuaFile(DEFAULT_INIT_FILE_STRING, "init.lua");
 	}
 
@@ -88,6 +89,12 @@ struct LuaGenerator
 	}
 
 private:
+
+	void loadDefaultModules()
+	{
+		auto templateModule = lua_.loadFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"));
+		templateModule();
+	}
 	public void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)
 	{
 		immutable string defaultString = defaultFileString;
