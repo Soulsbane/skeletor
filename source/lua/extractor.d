@@ -12,7 +12,9 @@ import lua.api.path;
 
 enum fileNames =
 [
-	"d/raijin/raijin.lua"
+	"d/raijin/raijin.lua",
+	"tests/test1/test1.lua",
+	"tests/test1/templates/main.tpl"
 ];
 
 // Really cool trick learned from reggae* source code. D really is awesome!
