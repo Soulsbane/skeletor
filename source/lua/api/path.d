@@ -5,9 +5,12 @@ module lua.api.path;
 
 import std.file : exists, getcwd, thisExePath;
 import std.path : dirName, buildNormalizedPath;
+import std.stdio;
 
+import luad.all;
 import raijin.utils.path;
 import config;
+import lua.helpers;
 
 string getInstallDir()
 {
@@ -65,9 +68,9 @@ string getNormalizedPath(const(char)[][] params...)
 	return buildNormalizedPath(params);
 }
 
-bool createDirInOutputDir(const(char)[][] args...)
+bool createDirInOutputDir(LuaObject[] params...)
 {
-	immutable string path = buildNormalizedPath(args);
+	immutable string path = buildNormalizedPath(params.convertLuaObjectsToStrings);
 	return ensurePathExists(getOutputDir(), path);
 }
 
