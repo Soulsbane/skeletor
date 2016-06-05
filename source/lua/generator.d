@@ -139,6 +139,8 @@ private:
 		lua_["Path", "GetModuleDir"] = &lua.api.path.getModuleDir;
 		lua_["Path", "GetGeneratorTemplatesDir"] = &getGeneratorTemplatesDir;
 		lua_["Path", "Normalize"] = &lua.api.path.getNormalizedPath;
+		lua_["Path", "CreateDirInOutputDir"] = &lua.api.path.createDirInOutputDir;
+		lua_["Path", "RemoveDirFromOutputDir"] = &lua.api.path.removeDirFromOutputDir;
 	}
 
 	void setupPackagePaths()

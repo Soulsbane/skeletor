@@ -1,6 +1,7 @@
 function OnCreate()
 	local year = Input.UserInputPrompt("Year", "Year: ", "1959")
 	print("Year is ", year)
+	Path.CreateDirInOutputDir("patheintest")
 end
 
 function OnProcessInput(values)
@@ -14,4 +15,5 @@ function OnProcessInput(values)
 end
 
 function OnDestroy()
+	Path.RemoveDirFromOutputDir("patheintest")
 end

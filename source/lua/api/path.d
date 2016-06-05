@@ -3,9 +3,10 @@
 */
 module lua.api.path;
 
-import std.file : getcwd, thisExePath;
+import std.file : exists, getcwd, thisExePath;
 import std.path : dirName, buildNormalizedPath;
 
+import raijin.utils.path;
 import config;
 
 string getInstallDir()
@@ -54,7 +55,6 @@ string getOutputDir()
 	return getcwd();
 }
 
-
 string getModuleDir()
 {
 	return buildNormalizedPath(getInstallDir(), "modules");
@@ -63,4 +63,14 @@ string getModuleDir()
 string getNormalizedPath(const(char)[][] params...)
 {
 	return buildNormalizedPath(params);
+}
+
+bool createDirInOutputDir(const string dir)
+{
+	return ensurePathExists(getOutputDir(), dir);
+}
+
+bool removeDirFromOutputDir(const string dir)
+{
+	return removePathIfExists(getOutputDir(), dir);
 }
