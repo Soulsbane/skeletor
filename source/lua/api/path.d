@@ -65,9 +65,10 @@ string getNormalizedPath(const(char)[][] params...)
 	return buildNormalizedPath(params);
 }
 
-bool createDirInOutputDir(const string dir)
+bool createDirInOutputDir(const(char)[][] args...)
 {
-	return ensurePathExists(getOutputDir(), dir);
+	immutable string path = buildNormalizedPath(args);
+	return ensurePathExists(getOutputDir(), path);
 }
 
 bool removeDirFromOutputDir(const string dir)
