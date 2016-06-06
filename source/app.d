@@ -11,8 +11,17 @@ void main(string[] arguments)
 {
 	auto args = new CommandLineArgs;
 
-	args.addCommand("language", "d", "The name of language to generate a project for.");
-	args.addCommand("generator", "raijin", "The name of the generator to use.");
+	debug
+	{
+		args.addCommand("language", "tests", "The name of language to generate a project for.");
+		args.addCommand("generator", "test1", "The name of the generator to use.");
+	}
+	else
+	{
+		args.addCommand("language", "d", "The name of language to generate a project for.");
+		args.addCommand("generator", "raijin", "The name of the generator to use.");
+	}
+
 	args.process(arguments);
 
 	extractGenerators();
