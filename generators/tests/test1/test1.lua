@@ -9,12 +9,7 @@ function OnProcessInput(values)
 	for k, v in pairs(values) do
 		print(k, v)
 	end]]
---	local view = TemplateParser.compile(Path.GetGeneratorTemplatesDir() .. "/main.tpl")
---	local output = view({ Author = Author})
---	print(output)
-	local view = TemplateParser.new(Path.GetGeneratorTemplatesDir() .. "/main.tpl")
-	view.Author = Author
-	view:render()
+	print(Helpers.ParseTemplate("main.tpl"))
 end
 
 function OnDestroy()

@@ -89,12 +89,12 @@ struct LuaGenerator
 	}
 
 private:
-
 	void loadDefaultModules()
 	{
 		auto templateModule = lua_.loadFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"));
 		templateModule();
 	}
+
 	public void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)
 	{
 		immutable string defaultString = defaultFileString;
@@ -116,6 +116,8 @@ private:
 
 	void setupAPIFunctions()
 	{
+		lua_["Helpers"] = lua_.newTable; // Helpers table is used in Helpers Lua module
+
 		lua_["IO"] = lua_.newTable;
 		lua_["IO", "ReadText"] = &lua.api.filereader.readText;
 		lua_["IO", "GetLines"] = &lua.api.filereader.getLines;
