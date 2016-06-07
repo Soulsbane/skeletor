@@ -10,7 +10,7 @@ import std.typetuple;
 import raijin.utils;
 import lua.api.path;
 
-enum fileNames =
+enum generatorFilesList =
 [
 	"d/raijin/raijin.lua",
 	"tests/test1/test1.lua",
@@ -19,14 +19,14 @@ enum fileNames =
 
 // Really cool trick learned from reggae* source code. D really is awesome!
 // * https://github.com/atilaneves/reggae/blob/master/src/reggae/reggae.d
-private string filesTupleString() @safe pure nothrow
+private string generatorFilesTupleString() @safe pure nothrow
 {
-	return "TypeTuple!(" ~ fileNames.map!(a => `"` ~ a ~ `"`).join(",") ~ ")";
+	return "TypeTuple!(" ~ generatorFilesList.map!(a => `"` ~ a ~ `"`).join(",") ~ ")";
 }
 
-template FileNames()
+template GeneratorFileNames()
 {
-	mixin("alias FileNames = " ~ filesTupleString ~ ";");
+	mixin("alias GeneratorFileNames = " ~ generatorFilesTupleString ~ ";");
 }
 
 void extractGenerators()
@@ -35,7 +35,7 @@ void extractGenerators()
 	{}
 	else
 	{
-		foreach(name; FileNames!())
+		foreach(name; GeneratorFileNames!())
 		{
 			immutable string filePath = dirName(buildNormalizedPath(getBaseGeneratorDir(), name));
 			immutable string pathWithFileName = buildNormalizedPath(getBaseGeneratorDir(), name);
