@@ -63,9 +63,9 @@ string getModuleDir()
 	return buildNormalizedPath(getInstallDir(), "modules");
 }
 
-string getNormalizedPath(const(char)[][] params...)
+string getNormalizedPath(LuaObject[] params...)
 {
-	return buildNormalizedPath(params);
+	return buildNormalizedPath(params.convertLuaObjectsToStrings);
 }
 
 bool createDirInOutputDir(LuaObject[] params...)

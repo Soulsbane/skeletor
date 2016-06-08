@@ -9,6 +9,7 @@ function OnProcessInput(values)
 	for k, v in pairs(values) do
 		print(k, v)
 	end]]
+	print(Path.Normalize("this", "is", "a", "test"))
 	print(Helpers.ParseTemplate("main.tpl"))
 end
 
