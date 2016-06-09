@@ -75,12 +75,15 @@ struct LuaGenerator
 		callFunction("OnProcessInput", values);
 	}
 
-	void callFunction(T...)(const string name, T args)
+	bool callFunction(T...)(const string name, T args)
 	{
 		if(hasFunction(name))
 		{
 			lua_.get!LuaFunction(name)(args);
+			return true;
 		}
+
+		return false;
 	}
 
 	bool hasFunction(const string name)
