@@ -53,7 +53,11 @@ struct LuaGenerator
 		{
 			auto addonFile = lua_.loadFile(fileName);
 
-			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
+			if(_Config.asBoolean("useDefaultPrompts", true))
+			{
+				loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
+			}
+
 			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
 			callFunction("OnCreate");
 

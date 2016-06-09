@@ -15,7 +15,7 @@ static this()
 
 	debug
 	{
-		ensurePathExists(buildNormalizedPath(dirName(thisExePath()), "generators"));
+		ensurePathExists(buildNormalizedPath(dirName(thisExePath()), "generators")); /// ???? This needs to be fixed where default-config.app is loaded
 	}
 	else
 	{
