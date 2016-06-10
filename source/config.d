@@ -13,10 +13,7 @@ static this()
 	immutable string defaultConfigFileData = import("default-app.config");
 	_Config = AppConfig("Raijinsoft", "skeletor", defaultConfigFileData);
 
-	debug
-	{
-		ensurePathExists(buildNormalizedPath(dirName(thisExePath()), "generators")); /// ???? This needs to be fixed where default-config.app is loaded
-	}
+	debug {} //FIXME: There might be another D construct to do this but this works for now.
 	else
 	{
 		ensurePathExists(_Config.path.getConfigDir("generators"));
