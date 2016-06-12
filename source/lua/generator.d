@@ -102,7 +102,7 @@ private:
 		templateModule();
 	}
 
-	public void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)
+	void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)
 	{
 		immutable string defaultString = defaultFileString;
 
