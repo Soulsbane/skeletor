@@ -11,6 +11,8 @@ function OnProcessInput(values)
 	end]]
 	print(Path.Normalize("this", "is", "a", "test"))
 	print(Helpers.ParseTemplate("main.tpl"))
+	
+	IO.CreateOutputFile("testfiles/test.abc", "hello world")
 end
 
 function OnDestroy()
