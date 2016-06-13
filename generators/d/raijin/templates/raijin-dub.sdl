@@ -1,0 +1,5 @@
+name "{{ProjectName}}"
+description "{{Description}}."
+copyright "Copyright © 2016"
+authors "{{Author}}"
+dependency "raijin" version="*"
