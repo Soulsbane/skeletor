@@ -7,8 +7,25 @@ import lua.generator;
 import lua.api.path;
 import lua.extractor;
 
+void startGenerator(const string language, const string generatorName)
+{
+	LuaGenerator generator = LuaGenerator(language, generatorName);
+	immutable bool succeeded = generator.create();
+
+	if(succeeded)
+	{
+		generator.processInput();
+	}
+	else
+	{
+		writeln("Generator not found!");
+	}
+}
+
 void main(string[] arguments)
 {
+	extractGenerators();
+
 	auto args = new CommandLineArgs;
 
 	debug
@@ -23,17 +40,16 @@ void main(string[] arguments)
 	}
 
 	args.process(arguments);
+	startGenerator(args.asString("language"), args.asString("generator"));
+	
+	/*SafeIndexArgs args = SafeIndexArgs(arguments);
+	immutable string command = args.get(1, "create");
 
-	extractGenerators();
-	LuaGenerator generator = LuaGenerator(args.asString("language"), args.asString("generator"));
-	immutable bool succeeded = generator.create();
-
-	if(succeeded)
+	switch(command)
 	{
-		generator.processInput();
-	}
-	else
-	{
-		writeln("Generator not found!");
-	}
+		case "create":
+			startGenerator(args.get(2, "d"), args.get(3, "raijin"));
+			break;
+		default:
+	}*/
 }
