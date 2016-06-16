@@ -2,6 +2,7 @@ import std.stdio : writeln;
 
 import raijin;
 
+import config;
 import inputcollector;
 import lua.generator;
 import lua.api.path;
@@ -40,8 +41,12 @@ void main(string[] arguments)
 	}
 
 	args.process(arguments);
+
+	_Config["language"] = args.asString("language");
+	_Config["generator"] = args.asString("generator");
 	startGenerator(args.asString("language"), args.asString("generator"));
-	
+	_Config.save();
+
 	/*SafeIndexArgs args = SafeIndexArgs(arguments);
 	immutable string command = args.get(1, "create");
 
