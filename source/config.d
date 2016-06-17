@@ -11,11 +11,7 @@ AppConfig _Config;
 static this()
 {
 	immutable string defaultConfigFileData = import("default-app.config");
-	_Config = AppConfig("Raijinsoft", "skeletor", defaultConfigFileData);
 
-	debug {} //FIXME: There might be another D construct to do this but this works for now.
-	else
-	{
-		ensurePathExists(_Config.path.getConfigDir("generators"));
-	}
+	_Config = AppConfig("Raijinsoft", "skeletor", defaultConfigFileData);
+	ensurePathExists(_Config.path.getConfigDir("generators"));
 }
