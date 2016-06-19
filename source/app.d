@@ -25,7 +25,6 @@ void startGenerator(const string language, const string generatorName)
 
 void main(string[] arguments)
 {
-	extractGenerators();
 
 	auto args = new CommandLineArgs;
 
@@ -40,12 +39,18 @@ void main(string[] arguments)
 		args.addCommand("generator", "raijin", "The name of the generator to use.");
 	}
 
-	args.process(arguments);
+	immutable bool succeeded = args.process(arguments);
 
-	_Config["language"] = args.asString("language");
-	_Config["generator"] = args.asString("generator");
-	startGenerator(args.asString("language"), args.asString("generator"));
-	_Config.save();
+	if(succeeded)
+	{
+		extractGenerators();
+
+		_Config["language"] = args.asString("language");
+		_Config["generator"] = args.asString("generator");
+		
+		startGenerator(args.asString("language"), args.asString("generator"));
+		_Config.save();
+	}
 
 	/*SafeIndexArgs args = SafeIndexArgs(arguments);
 	immutable string command = args.get(1, "create");
