@@ -13,6 +13,8 @@ import lua.api.path;
 enum generatorFilesList =
 [
 	"d/raijin/raijin.lua",
+	"d/raijin/templates/raijin-app.d",
+	"d/raijin/templates/raijin-dub.sdl",
 	"tests/test1/test1.lua",
 	"tests/test1/templates/main.tpl"
 ];
