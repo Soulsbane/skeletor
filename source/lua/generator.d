@@ -12,6 +12,7 @@ import lua.api.path;
 import lua.api.filereader;
 import lua.api.filewriter;
 import lua.api.fileutils;
+import lua.api.downloader;
 
 enum DEFAULT_PROMPTS_FILE_STRING = import("default-prompts.lua");
 enum DEFAULT_INIT_FILE_STRING = import("default-init.lua");
@@ -150,6 +151,9 @@ private:
 		lua_["Path", "Normalize"] = &lua.api.path.getNormalizedPath;
 		lua_["Path", "CreateDirInOutputDir"] = &lua.api.path.createDirInOutputDir;
 		lua_["Path", "RemoveDirFromOutputDir"] = &lua.api.path.removeDirFromOutputDir;
+
+		lua_["Downloader"] = lua_.newTable;
+		lua_["Downloader", "GetTextFile"] = &lua.api.downloader.getTextFile;
 	}
 
 	void setupPackagePaths()

@@ -1,4 +1,5 @@
 function OnCreate()
+	print("Downloading...")
 end
 
 function OnProcessInput(values)
@@ -11,8 +12,10 @@ function OnProcessInput(values)
 	end]]
 	print(Path.Normalize("this", "is", "a", "test"))
 	print(Helpers.ParseTemplate("main.tpl"))
-	
+
 	IO.CreateOutputFile("testfiles/test.abc", "hello world")
+	local text = Downloader.GetTextFile("https://raw.githubusercontent.com/Soulsbane/skeletor/master/source/default-init.lua")
+	print(text)
 end
 
 function OnDestroy()
