@@ -1,5 +1,5 @@
 function OnCreate()
-	Input.UserInputPrompt("ProjectName", "Project Name(Used as directory name also): ", "foobar")
+	IO.UserInputPrompt("ProjectName", "Project Name(Used as directory name also): ", "foobar")
 end
 
 function OnProcessInput(values)

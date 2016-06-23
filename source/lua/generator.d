@@ -135,9 +135,7 @@ private:
 		lua_["IO", "CopyFileTo"] = &lua.api.fileutils.copyFileTo;
 		lua_["IO", "CopyFileToOutputDir"] = &lua.api.fileutils.copyFileToOutputDir;
 		lua_["IO", "RemoveFileFromOutputDir"] = &lua.api.fileutils.removeFileFromOutputDir;
-
-		lua_["Input"] = lua_.newTable;
-		lua_["Input", "UserInputPrompt"] = &inputcollector.userInputPrompt;
+		lua_["IO", "UserInputPrompt"] = &inputcollector.userInputPrompt;
 
 		lua_["Path"] = lua_.newTable;
 		lua_["Path", "GetBaseGeneratorDir"] = &lua.api.path.getBaseGeneratorDir;
