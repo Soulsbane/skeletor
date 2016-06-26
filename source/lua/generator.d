@@ -2,6 +2,7 @@ module lua.generator;
 
 import std.path : buildNormalizedPath;
 import std.file : exists;
+import std.datetime : Clock;
 
 import raijin.utils.file;
 import luad.all;
@@ -30,6 +31,7 @@ struct LuaGenerator
 
 		setupAPIFunctions();
 		setupPackagePaths();
+		setupGlobalTemplateVars();
 
 		loadDefaultModules();
 		loadAndExecuteLuaFile(DEFAULT_INIT_FILE_STRING, "init.lua");
@@ -160,6 +162,25 @@ private:
 
 		packagePath ~= ";" ~ buildNormalizedPath(getGeneratorDirFor(language_, generatorName_), "modules", "?.lua");
 		lua_["package", "path"] = packagePath;
+	}
+
+	void setupGlobalTemplateVars()
+	{
+		auto currentTime = Clock.currTime;
+		int hour = cast(int)currentTime.hour;
+
+		if(hour > 12)
+		{
+			hour = hour - 12;
+		}
+
+		lua_["Month"] = currentTime.month;
+		lua_["Day"] = currentTime.day;
+		lua_["Year"] = currentTime.year;
+		lua_["Hour"] = hour;
+		lua_["Hour24"] = currentTime.hour;
+		lua_["Minute"] = currentTime.minute;
+		lua_["Second"] = currentTime.second;
 	}
 
 	string getGeneratorDir()
