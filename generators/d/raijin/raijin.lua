@@ -6,10 +6,10 @@ function OnProcessInput(values)
 	Path.CreateDirInOutputDir(ProjectName, "source")
 
 	local dubData = Helpers.ParseTemplate("raijin-dub.sdl")
-	IO.CreateOutputFile(ProjectName .. "/dub.sdl", dubData)
+	IO.CreateOutputFile(Path.Normalize(ProjectName, "dub.sdl"), dubData)
 
 	local appData = Helpers.ParseTemplate("raijin-app.d")
-	IO.CreateOutputFile(ProjectName .. "/source/app.d", appData)
+	IO.CreateOutputFile(Path.Normalize(ProjectName, "source", "app.d"), appData)
 end
 
 function OnDestroy()
