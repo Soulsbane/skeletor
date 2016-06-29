@@ -13,4 +13,5 @@ function OnProcessInput(values)
 end
 
 function OnDestroy()
+	print(ProjectName .. " was successfully created!")
 end
