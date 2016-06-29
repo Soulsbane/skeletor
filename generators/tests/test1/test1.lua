@@ -19,4 +19,10 @@ function OnProcessInput(values)
 end
 
 function OnDestroy()
+	local answer = IO.ConfirmationPrompt("Are you sure you want to quit(y/n)?")
+	if answer then
+		print("Quitting...")
+	else
+		print("That's too bad quitting anyway!!!")
+	end
 end
