@@ -142,6 +142,8 @@ private:
 		lua_["IO", "UserInputPrompt"] = &inputcollector.userInputPrompt;
 		lua_["IO", "ConfirmationPrompt"] = &raijin.cmdline.confirmationPrompt;
 
+		lua_["IO", "WriteLn"] = &lua.api.filewriter.writeLn;
+
 		lua_["Path"] = lua_.newTable;
 		lua_["Path", "GetBaseGeneratorDir"] = &lua.api.path.getBaseGeneratorDir;
 		lua_["Path", "GetGeneratorDirFor"] = &lua.api.path.getGeneratorDirFor;
