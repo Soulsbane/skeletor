@@ -16,11 +16,11 @@ import lua.api.filewriter;
 import lua.api.fileutils;
 import lua.api.downloader;
 
-enum DEFAULT_PROMPTS_FILE_STRING = import("default-prompts.lua");
-enum DEFAULT_INIT_FILE_STRING = import("default-init.lua");
-
 struct LuaGenerator
 {
+	enum DEFAULT_PROMPTS_FILE_STRING = import("default-prompts.lua");
+	enum DEFAULT_INIT_FILE_STRING = import("default-init.lua");
+
 	this(const string language, const string generatorName)
 	{
 		language_ = language;
