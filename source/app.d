@@ -23,43 +23,24 @@ void startGenerator(const string language, const string generatorName)
 	}
 }
 
+void onCreate(const string commandName, string[] args...)
+{
+	immutable string language = args[0];
+	immutable string generator = args[1];
+
+	extractGenerators();
+
+	_Config["language"] = language;
+	_Config["generator"] = generator;
+
+	startGenerator(language, generator);
+	_Config.save();
+}
+
 void main(string[] arguments)
 {
+	Commander commands;
 
-	auto args = new CommandLineArgs;
-
-	debug
-	{
-		args.addCommand("language", "tests", "The name of language to generate a project for.");
-		args.addCommand("generator", "test1", "The name of the generator to use.");
-	}
-	else
-	{
-		args.addCommand("language", "d", "The name of language to generate a project for.");
-		args.addCommand("generator", "raijin", "The name of the generator to use.");
-	}
-
-	immutable bool succeeded = args.process(arguments);
-
-	if(succeeded)
-	{
-		extractGenerators();
-
-		_Config["language"] = args.asString("language");
-		_Config["generator"] = args.asString("generator");
-		
-		startGenerator(args.asString("language"), args.asString("generator"));
-		_Config.save();
-	}
-
-	/*SafeIndexArgs args = SafeIndexArgs(arguments);
-	immutable string command = args.get(1, "create");
-
-	switch(command)
-	{
-		case "create":
-			startGenerator(args.get(2, "d"), args.get(3, "raijin"));
-			break;
-		default:
-	}*/
+	commands.addCommand("create", "2", &onCreate);
+	commands.process(arguments);
 }
