@@ -8,7 +8,7 @@ import lua.generator;
 import lua.api.path;
 import lua.extractor;
 
-void startGenerator(const string language, const string generatorName)
+bool startGenerator(const string language, const string generatorName)
 {
 	LuaGenerator generator = LuaGenerator(language, generatorName);
 	immutable bool succeeded = generator.create();
@@ -21,20 +21,25 @@ void startGenerator(const string language, const string generatorName)
 	{
 		writeln("Generator not found!");
 	}
+
+	return succeeded;
 }
 
 void onCreate(const string commandName, string[] args...)
 {
 	immutable string language = args[0];
 	immutable string generator = args[1];
+	immutable bool succeeded = startGenerator(language, generator);
 
-	extractGenerators();
+	if(succeeded)
+	{
+		extractGenerators();
 
-	_Config["language"] = language;
-	_Config["generator"] = generator;
+		_Config["language"] = language;
+		_Config["generator"] = generator;
 
-	startGenerator(language, generator);
-	_Config.save();
+		_Config.save();
+	}
 }
 
 void main(string[] arguments)
