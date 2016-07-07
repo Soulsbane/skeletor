@@ -10,8 +10,8 @@ import lua.extractor;
 
 bool startGenerator(const string language, const string generatorName)
 {
-	LuaGenerator generator = LuaGenerator(language, generatorName);
-	immutable bool succeeded = generator.create();
+	LuaGenerator generator;
+	immutable bool succeeded = generator.create(language, generatorName);
 
 	if(succeeded)
 	{

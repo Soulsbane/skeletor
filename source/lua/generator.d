@@ -21,11 +21,8 @@ struct LuaGenerator
 	enum DEFAULT_PROMPTS_FILE_STRING = import("default-prompts.lua");
 	enum DEFAULT_INIT_FILE_STRING = import("default-init.lua");
 
-	this(const string language, const string generatorName)
+	void setupLuaEnv()
 	{
-		language_ = language;
-		generatorName_ = generatorName;
-
 		lua_ = new LuaState;
 		lua_.openLibs();
 		lua_.setPanicHandler(&panic);
@@ -40,7 +37,7 @@ struct LuaGenerator
 
 	~this()
 	{
-		callFunction("OnDestroy");
+		callFunction("OnDestroy"); // FIXME: Maybe set a member for success in loading.
 	}
 
 	static void panic(LuaState lua, in char[] error)
@@ -49,12 +46,18 @@ struct LuaGenerator
 		writeln("Error in generator code!\n", error, "\n");
 	}
 
-	bool create()
+	bool create(const string language, const string generatorName)
 	{
+		language_ = language;
+		generatorName_ = generatorName;
+
 		immutable string fileName = buildNormalizedPath(getGeneratorDir(), generatorName_) ~ ".lua";
 
 		if(fileName.exists)
 		{
+			generatorLoaded_ = true;
+
+			setupLuaEnv();
 			auto addonFile = lua_.loadFile(fileName);
 
 			if(_Config.asBoolean("useDefaultPrompts", true))
@@ -85,6 +88,11 @@ struct LuaGenerator
 
 	bool callFunction(T...)(const string name, T args)
 	{
+		if(!generatorLoaded_)
+		{
+			return false;
+		}
+		
 		if(hasFunction(name))
 		{
 			lua_.get!LuaFunction(name)(args);
@@ -207,4 +215,5 @@ private:
 	LuaState lua_;
 	string language_;
 	string generatorName_;
+	bool generatorLoaded_;
 }
