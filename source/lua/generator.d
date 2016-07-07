@@ -37,7 +37,7 @@ struct LuaGenerator
 
 	~this()
 	{
-		callFunction("OnDestroy"); // FIXME: Maybe set a member for success in loading.
+		callFunction("OnDestroy");
 	}
 
 	static void panic(LuaState lua, in char[] error)
@@ -92,7 +92,7 @@ struct LuaGenerator
 		{
 			return false;
 		}
-		
+
 		if(hasFunction(name))
 		{
 			lua_.get!LuaFunction(name)(args);
