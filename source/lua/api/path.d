@@ -60,7 +60,14 @@ string getOutputDir()
 
 string getModuleDir()
 {
-	return buildNormalizedPath(getInstallDir(), "modules");
+	debug
+	{
+		return buildNormalizedPath(getInstallDir(), "modules");
+	}
+	else
+	{
+		return _Config.path.getConfigDir("modules");
+	}
 }
 
 string getNormalizedPath(LuaObject[] params...)

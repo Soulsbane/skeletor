@@ -29,11 +29,11 @@ void onCreate(const string commandName, string[] args...)
 {
 	immutable string language = args[0];
 	immutable string generator = args[1];
+
 	immutable bool succeeded = startGenerator(language, generator);
 
 	if(succeeded)
 	{
-		extractGenerators();
 
 		_Config["language"] = language;
 		_Config["generator"] = generator;
@@ -46,6 +46,7 @@ void main(string[] arguments)
 {
 	Commander commands;
 
+	extractGenerators();
 	commands.addCommand("create", "2", &onCreate);
 	commands.process(arguments);
 }
