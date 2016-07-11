@@ -8,4 +8,9 @@ function Helpers.ParseTemplate(fileName)
 	return str
 end
 
+function Helpers.ParseAndCreateOutputFile(outputFileName, templateName)
+	local data = Helpers.ParseTemplate(templateName)
+	IO.CreateOutputFile(outputFileName, data)
+end
+
 return Helpers

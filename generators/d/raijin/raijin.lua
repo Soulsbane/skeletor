@@ -5,14 +5,9 @@ end
 function OnProcessInput(values)
 	Path.CreateDirInOutputDir(ProjectName, "source")
 
-	local dubData = Helpers.ParseTemplate("raijin-dub.sdl")
-	IO.CreateOutputFile(Path.Normalize(ProjectName, "dub.sdl"), dubData)
-
-	local appData = Helpers.ParseTemplate("raijin-app.d")
-	IO.CreateOutputFile(Path.Normalize(ProjectName, "source", "app.d"), appData)
-
-	local gitIgnoreData = Helpers.ParseTemplate("raijin-gitignore")
-	IO.CreateOutputFile(Path.Normalize(ProjectName, ".gitignore"), gitIgnoreData)
+	Helpers.ParseAndCreateOutputFile(Path.Normalize(ProjectName, "dub.sdl"), "raijin-dub.sdl")
+	Helpers.ParseAndCreateOutputFile(Path.Normalize(ProjectName, "source", "app.d"), "raijin-app.d")
+	Helpers.ParseAndCreateOutputFile(Path.Normalize(ProjectName, ".gitignore"), "raijin-gitignore")
 end
 
 function OnDestroy()
