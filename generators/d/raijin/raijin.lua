@@ -10,6 +10,9 @@ function OnProcessInput(values)
 
 	local appData = Helpers.ParseTemplate("raijin-app.d")
 	IO.CreateOutputFile(Path.Normalize(ProjectName, "source", "app.d"), appData)
+
+	local gitIgnoreData = Helpers.ParseTemplate("raijin-gitignore")
+	IO.CreateOutputFile(Path.Normalize(ProjectName, ".gitignore"), gitIgnoreData)
 end
 
 function OnDestroy()
