@@ -6,6 +6,7 @@ import std.datetime : Clock;
 
 import raijin.utils.file;
 import raijin.cmdline;
+import raijin.utils.debugtools;
 import luad.all;
 
 import config;
@@ -48,13 +49,14 @@ struct LuaGenerator
 
 	bool create(const string language, const string generatorName)
 	{
-		language_ = language;
-		generatorName_ = generatorName;
-
-		immutable string fileName = buildNormalizedPath(getGeneratorDir(), generatorName_) ~ ".lua";
+		Log.info("start"); //FIXME: This keeps us from segfaulting for some reason?
+		immutable string fileName = buildNormalizedPath(getGeneratorDirFor(language, generatorName), generatorName) ~ ".lua";
 
 		if(fileName.exists)
 		{
+			language_ = language;
+			generatorName_ = generatorName;
+
 			generatorLoaded_ = true;
 
 			setupLuaEnv();
