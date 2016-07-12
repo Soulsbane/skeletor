@@ -10,9 +10,6 @@ import std.typetuple;
 import raijin.utils;
 import lua.api.path;
 
-// Lots of bugs with extracting. Files are generated based on file name in generator code and will fail with a different filename.
-// Modules won't be extracted.
-
 enum generatorFilesList =
 [
 	"d/raijin/raijin.lua",
