@@ -25,16 +25,13 @@ bool startGenerator(const string language, const string generatorName)
 	return succeeded;
 }
 
-void onCreate(const string commandName, string[] args...)
+@CommandHelp("Creates a new project.")
+void create(string language, string generator)
 {
-	immutable string language = args[0];
-	immutable string generator = args[1];
-
 	immutable bool succeeded = startGenerator(language, generator);
 
 	if(succeeded)
 	{
-
 		_Config["language"] = language;
 		_Config["generator"] = generator;
 
@@ -44,9 +41,12 @@ void onCreate(const string commandName, string[] args...)
 
 void main(string[] arguments)
 {
-	Commander commands;
+	mixin Commander;
+	Commander cmd;
+	bool succeeded = cmd.process(arguments);
 
-	extractGenerators();
-	commands.addCommand("create", "2", &onCreate);
-	commands.process(arguments);
+	if(!succeeded && !arguments.length > 2)
+	{
+		debug writeln("Invalid option!");
+	}
 }
