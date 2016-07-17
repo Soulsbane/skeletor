@@ -43,10 +43,5 @@ void main(string[] arguments)
 {
 	mixin Commander;
 	Commander cmd;
-	bool succeeded = cmd.process(arguments);
-
-	if(!succeeded && !arguments.length > 2)
-	{
-		debug writeln("Invalid option!");
-	}
+	cmd.process(arguments);
 }

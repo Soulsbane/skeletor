@@ -49,7 +49,7 @@ struct LuaGenerator
 
 	bool create(const string language, const string generatorName)
 	{
-		Log.info("start"); //FIXME: This keeps us from segfaulting for some reason?
+		//Log.info("start"); //FIXME: This keeps us from segfaulting for some reason?
 		immutable string fileName = buildNormalizedPath(getGeneratorDirFor(language, generatorName), generatorName) ~ ".lua";
 
 		if(fileName.exists)
