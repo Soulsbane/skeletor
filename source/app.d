@@ -25,7 +25,8 @@ bool startGenerator(const string language, const string generatorName)
 	return succeeded;
 }
 
-@CommandHelp("Creates a new project.")
+@CommandHelp("Creates a new project.", ["Name of the programming language the project will use.",
+	"The name of the generator to use to generate a project."])
 void create(string language, string generator)
 {
 	immutable bool succeeded = startGenerator(language, generator);
@@ -41,7 +42,9 @@ void create(string language, string generator)
 
 void main(string[] arguments)
 {
+	extractGenerators();
 	mixin Commander;
+	
 	Commander cmd;
 	cmd.process(arguments);
 }

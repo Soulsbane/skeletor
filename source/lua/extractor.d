@@ -59,6 +59,7 @@ void extractGenerators()
 			immutable string filePath = dirName(buildNormalizedPath(getBaseGeneratorDir(), name));
 			immutable string pathWithFileName = buildNormalizedPath(getBaseGeneratorDir(), name);
 
+			removeFileIfExists(pathWithFileName);
 			ensurePathExists(filePath);
 			ensureFileExists(pathWithFileName, import(name));
 		}
@@ -68,6 +69,7 @@ void extractGenerators()
 			immutable string modulesPath = dirName(buildNormalizedPath(getModuleDir(), name));
 			immutable string modulesPathWithFileName = buildNormalizedPath(getModuleDir(), name);
 
+			removeFileIfExists(modulesPathWithFileName);
 			ensurePathExists(modulesPath);
 			ensureFileExists(modulesPathWithFileName, import(name));
 		}
