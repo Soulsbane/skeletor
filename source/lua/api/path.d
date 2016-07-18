@@ -25,7 +25,7 @@ string getBaseGeneratorDir()
 	}
 	else
 	{
-		return _Config.path.getConfigDir("generators");
+		return _Config.getConfigDir("generators");
 	}
 }
 
@@ -37,7 +37,7 @@ string getGeneratorLanguageDir(const string language = string.init)
 	}
 	else
 	{
-		return _Config.path.getConfigDir("generators", language);
+		return _Config.getConfigDir("generators", language);
 	}
 }
 
@@ -49,7 +49,7 @@ string getGeneratorDirFor(const string language = string.init, const string gene
 	}
 	else
 	{
-		return _Config.path.getConfigDir("generators", language, generatorName);
+		return _Config.getConfigDir("generators", language, generatorName);
 	}
 }
 
@@ -66,7 +66,7 @@ string getModuleDir()
 	}
 	else
 	{
-		return _Config.path.getConfigDir("modules");
+		return _Config.getConfigDir("modules");
 	}
 }
 
