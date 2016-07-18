@@ -56,7 +56,7 @@ void create(string language, string generator)
 	}
 }
 
-@CommandHelp("List all the available generators")
+@CommandHelp("Lists all the available generators")
 void list()
 {
 	writeln("The following generators are available:");
