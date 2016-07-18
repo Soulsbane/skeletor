@@ -1,4 +1,10 @@
 import std.stdio : writeln;
+import std.file;
+import std.algorithm;
+import std.array;
+import std.string;
+import std.range;
+import std.path;
 
 import raijin;
 
@@ -25,6 +31,17 @@ bool startGenerator(const string language, const string generatorName)
 	return succeeded;
 }
 
+auto getDirList(const string name, SpanMode mode)
+{
+	auto dirs = dirEntries(name, mode)
+		.filter!(a => a.isDir)
+		.filter!(a => !a.name.startsWith("."))
+		.array
+		.retro;
+
+	return dirs;
+}
+
 @CommandHelp("Creates a new project.", ["The programming language in which to generate a project.",
 	"The name of the generator to use to generate a project."])
 void create(string language, string generator)
@@ -37,6 +54,23 @@ void create(string language, string generator)
 		_Config["generator"] = generator;
 
 		_Config.save();
+	}
+}
+
+@CommandHelp("List all the available generators")
+void list()
+{
+	writeln("The following generators are available:");
+	writeln;
+
+	foreach(name; getDirList(getBaseGeneratorDir(), SpanMode.shallow))
+	{
+		writeln(name.baseName.capitalize, ":");
+
+		foreach(generatorName; getDirList(buildNormalizedPath(getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
+		{
+			writeln("  ", generatorName.baseName);
+		}
 	}
 }
 
