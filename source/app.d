@@ -64,12 +64,14 @@ void list()
 
 	foreach(name; getDirList(getBaseGeneratorDir(), SpanMode.shallow))
 	{
-		writeln(name.baseName.capitalize, ":");
+		writeln("[",name.baseName.capitalize, "]");
 
 		foreach(generatorName; getDirList(buildNormalizedPath(getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
 		{
 			writeln("  ", generatorName.baseName);
 		}
+
+		writeln;
 	}
 }
 
