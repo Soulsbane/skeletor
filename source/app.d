@@ -34,8 +34,7 @@ bool startGenerator(const string language, const string generatorName)
 auto getDirList(const string name, SpanMode mode)
 {
 	auto dirs = dirEntries(name, mode)
-		.filter!(a => a.isDir)
-		.filter!(a => !a.name.startsWith("."))
+		.filter!(a => a.isDir && !a.name.startsWith("."))
 		.array
 		.retro;
 
