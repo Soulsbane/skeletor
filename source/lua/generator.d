@@ -148,8 +148,6 @@ private:
 		lua_["IO", "CopyFileTo"] = &lua.api.fileutils.copyFileTo;
 		lua_["IO", "CopyFileToOutputDir"] = &lua.api.fileutils.copyFileToOutputDir;
 		lua_["IO", "RemoveFileFromOutputDir"] = &lua.api.fileutils.removeFileFromOutputDir;
-		lua_["IO", "DirExists"] = &lua.api.fileutils.dirExists;
-		lua_["IO", "OutputDirExists"] = &lua.api.fileutils.outputDirExists;
 
 		lua_["IO", "UserInputPrompt"] = &inputcollector.userInputPrompt;
 		lua_["IO", "ConfirmationPrompt"] = &raijin.cmdline.confirmationPrompt;
@@ -168,6 +166,8 @@ private:
 		lua_["Path", "Normalize"] = &lua.api.path.getNormalizedPath;
 		lua_["Path", "CreateDirInOutputDir"] = &lua.api.path.createDirInOutputDir;
 		lua_["Path", "RemoveDirFromOutputDir"] = &lua.api.path.removeDirFromOutputDir;
+		lua_["Path", "DirExists"] = &lua.api.path.dirExists;
+		lua_["Path", "OutputDirExists"] = &lua.api.path.outputDirExists;
 
 		lua_["Downloader"] = lua_.newTable;
 		lua_["Downloader", "GetTextFile"] = &lua.api.downloader.getTextFile;

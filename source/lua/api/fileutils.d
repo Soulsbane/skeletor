@@ -25,13 +25,3 @@ void removeFileFromOutputDir(string fileName) @trusted
 	removeFileIfExists(file);
 }
 
-bool dirExists(string dir)
-{
-	return dir.exists;
-}
-
-bool outputDirExists(string dir)
-{
-	string file = buildNormalizedPath(getOutputDir(), dir);
-	return file.exists;
-}

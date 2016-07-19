@@ -5,7 +5,7 @@ function OnCreate()
 end
 
 function OnProcessInput(values)
-	if IO.OutputDirExists(ProjectName) then
+	if Path.OutputDirExists(ProjectName) then
 		print("Failed to create directory. " .. ProjectName .. " already exists")
 		Success = false
 	else
