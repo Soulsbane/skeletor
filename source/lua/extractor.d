@@ -26,52 +26,13 @@ enum moduleFilesList =
 	"helpers.lua"
 ];
 
-// Really cool trick learned from reggae* source code. D really is awesome!
-// * https://github.com/atilaneves/reggae/blob/master/src/reggae/reggae.d
-private string generatorFilesTupleString() @safe pure nothrow
-{
-	return "TypeTuple!(" ~ generatorFilesList.map!(a => `"` ~ a ~ `"`).join(",") ~ ")";
-}
-
-private string generatorModuleFilesTupleString() @safe pure nothrow
-{
-	return "TypeTuple!(" ~ moduleFilesList.map!(a => `"` ~ a ~ `"`).join(",") ~ ")";
-}
-
-template GeneratorFileNames()
-{
-	mixin("alias GeneratorFileNames = " ~ generatorFilesTupleString ~ ";");
-}
-
-template ModuleFileNames()
-{
-	mixin("alias ModuleFileNames = " ~ generatorModuleFilesTupleString ~ ";");
-}
-
 void extractGenerators()
 {
 	debug
 	{}
 	else
 	{
-		foreach(name; GeneratorFileNames!())
-		{
-			immutable string filePath = dirName(buildNormalizedPath(getBaseGeneratorDir(), name));
-			immutable string pathWithFileName = buildNormalizedPath(getBaseGeneratorDir(), name);
-
-			removeFileIfExists(pathWithFileName);
-			ensurePathExists(filePath);
-			ensureFileExists(pathWithFileName, import(name));
-		}
-
-		foreach(name; ModuleFileNames!())
-		{
-			immutable string modulesPath = dirName(buildNormalizedPath(getModuleDir(), name));
-			immutable string modulesPathWithFileName = buildNormalizedPath(getModuleDir(), name);
-
-			removeFileIfExists(modulesPathWithFileName);
-			ensurePathExists(modulesPath);
-			ensureFileExists(modulesPathWithFileName, import(name));
-		}
+		extractImportFiles!generatorFilesList(getBaseGeneratorDir());
+		extractImportFiles!moduleFilesList(getModuleDir());
 	}
 }
