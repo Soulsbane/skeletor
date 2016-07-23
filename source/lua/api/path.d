@@ -10,7 +10,6 @@ import std.stdio;
 import luad.all;
 import raijin.utils.path;
 import config;
-import lua.helpers;
 
 string getInstallDir()
 {
