@@ -85,12 +85,12 @@ bool removeDirFromOutputDir(const string dir)
 	return removePathIfExists(getOutputDir(), dir);
 }
 
-bool dirExists(string dir)
+bool dirExists(const string dir)
 {
 	return dir.exists;
 }
 
-bool outputDirExists(string dir)
+bool outputDirExists(const string dir)
 {
 	string file = buildNormalizedPath(getOutputDir(), dir);
 	return file.exists;
