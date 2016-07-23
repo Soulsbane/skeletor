@@ -14,6 +14,35 @@ import lua.generator;
 import lua.api.path;
 import lua.extractor;
 
+bool createProjectDir()
+{
+	if(inputcollector.hasValueFor("ProjectName"))
+	{
+		immutable string projectName = inputcollector.getValueFor("ProjectName");
+
+		if(!outputDirExists(projectName))
+		{
+			immutable bool created = createDirInOutputDir(projectName);
+
+			if(created)
+			{
+				writeln(projectName, " was successfully created!");
+				return true;
+			}
+
+			writeln("Failed to create directory: ", projectName);
+			return false;
+		}
+		else
+		{
+			writeln("ERROR: project name, ", projectName, " already exists!");
+			return false;
+		}
+	}
+
+	return false;
+}
+
 bool startGenerator(const string language, const string generatorName)
 {
 	LuaGenerator generator;
@@ -21,6 +50,7 @@ bool startGenerator(const string language, const string generatorName)
 
 	if(succeeded)
 	{
+		createProjectDir();
 		generator.processInput();
 	}
 	else
