@@ -70,14 +70,14 @@ string getModuleDir()
 	}
 }
 
-string getNormalizedPath(LuaObject[] params...)
+string getNormalizedPath(const(char)[][] params...)
 {
-	return buildNormalizedPath(params.convertLuaObjectsToStrings);
+	return buildNormalizedPath(params);
 }
 
-bool createDirInOutputDir(LuaObject[] params...)
+bool createDirInOutputDir(const(char)[][] params...)
 {
-	immutable string path = buildNormalizedPath(params.convertLuaObjectsToStrings);
+	immutable string path = buildNormalizedPath(params);
 	return ensurePathExists(getOutputDir(), path);
 }
 
