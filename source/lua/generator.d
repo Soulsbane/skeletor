@@ -149,14 +149,13 @@ private:
 		lua_["IO", "CopyFileToOutputDir"] = &lua.api.fileutils.copyFileToOutputDir;
 		lua_["IO", "RemoveFileFromOutputDir"] = &lua.api.fileutils.removeFileFromOutputDir;
 
-		lua_["IO", "UserInputPrompt"] = &inputcollector.userInputPrompt;
-		lua_["IO", "ConfirmationPrompt"] = &raijin.cmdline.confirmationPrompt;
-
 		lua_["IO", "WriteLn"] = &lua.api.filewriter.writeLn;
 
+		lua_["UserInput"] = lua_.newTable;
 		lua_["UserInput", "HasValueFor"] = &inputcollector.hasValueFor;
 		lua_["UserInput", "GetValueFor"] = &inputcollector.getValueFor;
 		lua_["UserInput", "Prompt"] = &inputcollector.userInputPrompt;
+		lua_["UserInput", "ConfirmationPrompt"] = &raijin.cmdline.confirmationPrompt;
 
 		lua_["Path"] = lua_.newTable;
 		lua_["Path", "GetBaseGeneratorDir"] = &lua.api.path.getBaseGeneratorDir;

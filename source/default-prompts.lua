@@ -1,2 +1,2 @@
-IO.UserInputPrompt("Author", "Author ", "Paul Crane");
-IO.UserInputPrompt("Description", "Description", "Project Description");
+UserInput.Prompt("Author", "Author ", "Paul Crane");
+UserInput.Prompt("Description", "Description", "Project Description");

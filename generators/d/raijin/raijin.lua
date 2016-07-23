@@ -1,7 +1,7 @@
 local Success
 
 function OnCreate()
-	IO.UserInputPrompt("ProjectName", "Project Name(Used as directory name also): ", "foobar")
+	UserInput.Prompt("ProjectName", "Project Name(Used as directory name also): ", "foobar")
 end
 
 function OnProcessInput(values)
