@@ -21,8 +21,8 @@ end
 function OnDestroy()
 	local answer = UserInput.ConfirmationPrompt("Are you sure you want to quit(y/n)?")
 	if answer then
-		IO.WriteLn("Quitting...", "Now")
+		print("Quitting...", "Now")
 	else
-		IO.WriteLn("That's too bad quitting anyway!!!")
+		print("That's too bad quitting anyway!!!")
 	end
 end

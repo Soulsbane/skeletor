@@ -22,12 +22,3 @@ void createOutputFile(const string fileName, const string data)
 	immutable string outputFileName = buildNormalizedPath(getOutputDir(), fileName);
 	ensureFileExists(outputFileName, data);
 }
-
-void writeLn(const(char)[][] params...)
-{
-	foreach(param; params)
-	{
-		write(param);
-	}
-	writeln;
-}

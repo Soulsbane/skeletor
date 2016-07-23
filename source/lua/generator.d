@@ -149,8 +149,6 @@ private:
 		lua_["IO", "CopyFileToOutputDir"] = &lua.api.fileutils.copyFileToOutputDir;
 		lua_["IO", "RemoveFileFromOutputDir"] = &lua.api.fileutils.removeFileFromOutputDir;
 
-		lua_["IO", "WriteLn"] = &lua.api.filewriter.writeLn;
-
 		lua_["UserInput"] = lua_.newTable;
 		lua_["UserInput", "HasValueFor"] = &inputcollector.hasValueFor;
 		lua_["UserInput", "GetValueFor"] = &inputcollector.getValueFor;
