@@ -154,6 +154,10 @@ private:
 
 		lua_["IO", "WriteLn"] = &lua.api.filewriter.writeLn;
 
+		lua_["UserInput", "HasValueFor"] = &inputcollector.hasValueFor;
+		lua_["UserInput", "GetValueFor"] = &inputcollector.getValueFor;
+		lua_["UserInput", "Prompt"] = &inputcollector.userInputPrompt;
+
 		lua_["Path"] = lua_.newTable;
 		lua_["Path", "GetBaseGeneratorDir"] = &lua.api.path.getBaseGeneratorDir;
 		lua_["Path", "GetGeneratorDirFor"] = &lua.api.path.getGeneratorDirFor;

@@ -33,6 +33,26 @@ string userInputPrompt(const string globalVarName, const string msg, string defa
 	return input.strip;
 }
 
+bool hasValueFor(const string key)
+{
+	if(key in _Values)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+string getValueFor(const string key, string defaultValue = string.init)
+{
+	if(hasValueFor(key))
+	{
+		return _Values[key];
+	}
+
+	return defaultValue;
+}
+
 CollectedValues collectValues()
 {
 	return _Values;
