@@ -56,18 +56,16 @@ struct LuaGenerator
 		{
 			language_ = language;
 			generatorName_ = generatorName;
-
 			generatorLoaded_ = true;
 
 			setupLuaEnv();
+
+			//inputcollector.userInputPrompt("ProjectName", "Project Name(Used as directory name as well): ", "foobar");
 			auto addonFile = lua_.loadFile(fileName);
 
-			if(_Config.asBoolean("useDefaultPrompts", true))
-			{
-				loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
-			}
-
+			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
 			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
+
 			callFunction("OnCreate");
 
 			return true;
