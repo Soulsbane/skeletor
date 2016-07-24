@@ -46,7 +46,6 @@ struct LuaGenerator
 
 	bool create(const string language, const string generatorName)
 	{
-		//Log.info("start"); //FIXME: This keeps us from segfaulting for some reason?
 		immutable string fileName = buildNormalizedPath(getGeneratorDirFor(language, generatorName), generatorName) ~ ".lua";
 
 		if(fileName.exists)
@@ -54,15 +53,11 @@ struct LuaGenerator
 			language_ = language;
 			generatorName_ = generatorName;
 			generatorLoaded_ = true;
+			//inputcollector.userInputPrompt("ProjectName", "Project Name(Used as directory name as well): ", "foobar");
 
 			setupLuaEnv();
-
-			//inputcollector.userInputPrompt("ProjectName", "Project Name(Used as directory name as well): ", "foobar");
-			auto addonFile = lua_.loadFile(fileName);
-
 			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
-			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
-
+			lua_.loadFile(fileName)();
 			lua_.callFunction("OnCreate");
 
 			return true;
@@ -86,8 +81,7 @@ struct LuaGenerator
 private:
 	void loadDefaultModules()
 	{
-		auto templateModule = lua_.loadFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"));
-		templateModule();
+		lua_.loadFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"))();
 	}
 
 	void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)
@@ -96,16 +90,14 @@ private:
 
 		debug
 		{
-			auto loadedFile = lua_.loadString(defaultString);
-			loadedFile();
+			lua_.loadString(defaultString)();
 		}
 		else
 		{
 			immutable string generatedFilePath = buildNormalizedPath(_Config.getConfigDir("config"), generatedFileName);
 
 			ensureFileExists(generatedFilePath, defaultString);
-			auto loadedFile = lua_.loadFile(generatedFilePath);
-			loadedFile();
+			lua_.loadFile(generatedFilePath)();
 		}
 	}
 
