@@ -11,6 +11,8 @@ import luad.all;
 
 import config;
 import inputcollector;
+
+import lua.luaaddon;
 import lua.api.path;
 import lua.api.filereader;
 import lua.api.filewriter;
@@ -24,9 +26,7 @@ struct LuaGenerator
 
 	void setupLuaEnv()
 	{
-		lua_ = new LuaState;
-		lua_.openLibs();
-		lua_.setPanicHandler(&panic);
+		lua_.setupEnvironment();
 
 		setupAPIFunctions();
 		setupPackagePaths();
@@ -38,13 +38,10 @@ struct LuaGenerator
 
 	~this()
 	{
-		callFunction("OnDestroy");
-	}
-
-	static void panic(LuaState lua, in char[] error)
-	{
-		import std.stdio : writeln;
-		writeln("Error in generator code!\n", error, "\n");
+		if(generatorLoaded_)
+		{
+			lua_.callFunction("OnDestroy");
+		}
 	}
 
 	bool create(const string language, const string generatorName)
@@ -66,7 +63,7 @@ struct LuaGenerator
 			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
 			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
 
-			callFunction("OnCreate");
+			lua_.callFunction("OnCreate");
 
 			return true;
 		}
@@ -83,28 +80,7 @@ struct LuaGenerator
 			lua_[key] = value;
 		}
 
-		callFunction("OnProcessInput", values);
-	}
-
-	bool callFunction(T...)(const string name, T args)
-	{
-		if(!generatorLoaded_)
-		{
-			return false;
-		}
-
-		if(hasFunction(name))
-		{
-			lua_.get!LuaFunction(name)(args);
-			return true;
-		}
-
-		return false;
-	}
-
-	bool hasFunction(const string name)
-	{
-		return lua_[name].isNil ? false : true;
+		lua_.callFunction("OnProcessInput", values);
 	}
 
 private:
@@ -215,7 +191,7 @@ private:
 	}
 
 private:
-	LuaState lua_;
+	LuaAddon lua_;
 	string language_;
 	string generatorName_;
 	bool generatorLoaded_;
