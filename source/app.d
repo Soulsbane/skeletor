@@ -50,8 +50,12 @@ bool startGenerator(const string language, const string generatorName)
 
 	if(succeeded)
 	{
-		createProjectDir();
-		generator.processInput();
+		immutable bool created = createProjectDir();
+		
+		if(created)
+		{
+			generator.processInput();
+		}
 	}
 	else
 	{
