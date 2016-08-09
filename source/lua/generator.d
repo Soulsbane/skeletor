@@ -81,7 +81,7 @@ struct LuaGenerator
 private:
 	void loadDefaultModules()
 	{
-		lua_.loadFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"))();
+		lua_.doFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"));
 		lua_.doFile(buildNormalizedPath(getModuleDir(), "globals.lua"));
 	}
 
