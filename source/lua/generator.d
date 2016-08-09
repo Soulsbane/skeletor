@@ -82,6 +82,7 @@ private:
 	void loadDefaultModules()
 	{
 		lua_.loadFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"))();
+		lua_.doFile(buildNormalizedPath(getModuleDir(), "globals.lua"));
 	}
 
 	void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)

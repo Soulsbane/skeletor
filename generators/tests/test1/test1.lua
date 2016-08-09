@@ -1,24 +1,3 @@
-function writeln(...)
-	print(...)
-end
-
-function write(...)
-	io.write(...)
-end
-
-function writef(s,...)
-	io.write(s:format(...))
-end
-
-function writefln(s,...)
-	io.write(s:format(...))
-	io.write("\n")
-end
-
-function OnCreate()
-	print("Downloading...")
-end
-
 function OnProcessInput(values)
 	--[[print("Called d.raijin generator: ", _G.Author)
 	print("Called d.raijin generator again without _G: ", Author)
