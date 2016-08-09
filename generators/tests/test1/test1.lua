@@ -1,3 +1,20 @@
+function writeln(...)
+	print(...)
+end
+
+function write(...)
+	io.write(...)
+end
+
+function writef(s,...)
+	io.write(s:format(...))
+end
+
+function writefln(s,...)
+	io.write(s:format(...))
+	io.write("\n")
+end
+
 function OnCreate()
 	print("Downloading...")
 end
@@ -26,4 +43,10 @@ function OnDestroy()
 		Helpers.PrintColor("%{red}That's too bad quitting anyway!!!")
 		Helpers.PrintColor("%{white blink underline}Hahahahah...")
 	end
+
+	write("test write")
+	writef("%s ", "Another test write")
+	writeln()
+	writeln("And a newline")
+	writefln("%s", "Another new line")
 end
