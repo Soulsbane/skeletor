@@ -24,5 +24,6 @@ function OnDestroy()
 		print("Quitting...", "Now")
 	else
 		Helpers.PrintColor("%{red}That's too bad quitting anyway!!!")
+		Helpers.PrintColor("%{white blink underline}Hahahahah...")
 	end
 end
