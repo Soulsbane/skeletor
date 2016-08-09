@@ -1,5 +1,6 @@
 local Helpers = Helpers
 TemplateParser = require "resty.template"
+AnsiColors = require "ansicolors"
 
 function Helpers.ParseTemplate(fileName)
 	local func = TemplateParser.compile(Path.GetGeneratorTemplatesDir() .. "/" .. fileName)
@@ -11,6 +12,10 @@ end
 function Helpers.ParseAndCreateOutputFile(outputFileName, templateName)
 	local data = Helpers.ParseTemplate(templateName)
 	IO.CreateOutputFile(outputFileName, data)
+end
+
+function Helpers.PrintColor(...)
+	print(AnsiColors(...))
 end
 
 return Helpers

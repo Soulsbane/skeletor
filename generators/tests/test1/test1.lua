@@ -23,6 +23,6 @@ function OnDestroy()
 	if answer then
 		print("Quitting...", "Now")
 	else
-		print("That's too bad quitting anyway!!!")
+		Helpers.PrintColor("%{red}That's too bad quitting anyway!!!")
 	end
 end

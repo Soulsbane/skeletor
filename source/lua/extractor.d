@@ -23,7 +23,8 @@ enum generatorFilesList =
 enum moduleFilesList =
 [
 	"resty/template.lua",
-	"helpers.lua"
+	"helpers.lua",
+	"ansicolors.lua"
 ];
 
 void extractGenerators()
