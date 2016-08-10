@@ -19,13 +19,13 @@ function OnDestroy()
 	if answer then
 		print("Quitting...", "Now")
 	else
-		Helpers.PrintColor("%{red}That's too bad quitting anyway!!!")
-		Helpers.PrintColor("%{white blink underline}Hahahahah...")
+		writeln("%{red}That's too bad quitting anyway!!!")
+		writeln("%{white blink underline}Hahahahah...")
 	end
 
 	write("test write")
 	writef("%s ", "Another test write")
 	writeln()
 	writeln("And a newline")
-	writefln("%s", "Another new line")
+	writefln("%s", "%{yellow whitebg}Another new line")
 end
