@@ -30,7 +30,6 @@ struct LuaGenerator
 
 		setupAPIFunctions();
 		setupPackagePaths();
-		setupGlobalTemplateVars();
 
 		loadDefaultModules();
 		loadAndExecuteLuaFile(DEFAULT_INIT_FILE_STRING, "init.lua");
@@ -53,7 +52,6 @@ struct LuaGenerator
 			language_ = language;
 			generatorName_ = generatorName;
 			generatorLoaded_ = true;
-			//inputcollector.userInputPrompt("ProjectName", "Project Name(Used as directory name as well): ", "foobar");
 
 			setupLuaEnv();
 			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
@@ -147,25 +145,6 @@ private:
 
 		packagePath ~= ";" ~ buildNormalizedPath(getGeneratorDirFor(language_, generatorName_), "modules", "?.lua");
 		lua_["package", "path"] = packagePath;
-	}
-
-	void setupGlobalTemplateVars()
-	{
-		auto currentTime = Clock.currTime;
-		int hour = cast(int)currentTime.hour;
-
-		if(hour > 12)
-		{
-			hour = hour - 12;
-		}
-
-		lua_["Month"] = currentTime.month;
-		lua_["Day"] = currentTime.day;
-		lua_["Year"] = currentTime.year;
-		lua_["Hour"] = hour;
-		lua_["Hour24"] = currentTime.hour;
-		lua_["Minute"] = currentTime.minute;
-		lua_["Second"] = currentTime.second;
 	}
 
 	string getGeneratorDir()
