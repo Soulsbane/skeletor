@@ -12,22 +12,20 @@ import luad.all;
 import config;
 import inputcollector;
 
-import lua.luaaddon;
 import lua.api.path;
 import lua.api.filereader;
 import lua.api.filewriter;
 import lua.api.fileutils;
 import lua.api.downloader;
+import luaaddon;
 
-struct LuaGenerator
+class LuaGenerator : LuaAddon
 {
 	enum DEFAULT_PROMPTS_FILE_STRING = import("default-prompts.lua");
 	enum DEFAULT_INIT_FILE_STRING = import("default-init.lua");
 
 	void setupLuaEnv()
 	{
-		lua_.setupEnvironment();
-
 		setupAPIFunctions();
 		setupPackagePaths();
 
@@ -35,11 +33,11 @@ struct LuaGenerator
 		loadAndExecuteLuaFile(DEFAULT_INIT_FILE_STRING, "init.lua");
 	}
 
-	~this()
+	void destroy()
 	{
 		if(generatorLoaded_)
 		{
-			lua_.callFunction("OnDestroy");
+			callFunction("OnDestroy");
 		}
 	}
 
@@ -55,8 +53,8 @@ struct LuaGenerator
 
 			setupLuaEnv();
 			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
-			lua_.loadFile(fileName)();
-			lua_.callFunction("OnCreate");
+			loadFile(fileName);
+			callFunction("OnCreate");
 
 			return true;
 		}
@@ -70,17 +68,17 @@ struct LuaGenerator
 
 		foreach(key, value; values)
 		{
-			lua_[key] = value;
+			state_[key] = value;
 		}
 
-		lua_.callFunction("OnProcessInput", values);
+		callFunction("OnProcessInput", values);
 	}
 
 private:
 	void loadDefaultModules()
 	{
-		lua_.doFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"));
-		lua_.doFile(buildNormalizedPath(getModuleDir(), "globals.lua"));
+		loadFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"));
+		loadFile(buildNormalizedPath(getModuleDir(), "globals.lua"));
 	}
 
 	void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)
@@ -89,62 +87,56 @@ private:
 
 		debug
 		{
-			lua_.loadString(defaultString)();
+			loadString(defaultString);
 		}
 		else
 		{
 			immutable string generatedFilePath = buildNormalizedPath(_Config.getConfigDir("config"), generatedFileName);
 
 			ensureFileExists(generatedFilePath, defaultString);
-			lua_.loadFile(generatedFilePath)();
+			loadFile(generatedFilePath)();
 		}
 	}
 
 	void setupAPIFunctions()
 	{
-		lua_["Helpers"] = lua_.newTable; // Helpers table is used in Helpers Lua module
+		createNewTable("Helpers", "IO", "UserInput", "Path", "Downloader");
 
-		lua_["IO"] = lua_.newTable;
-		lua_["IO", "ReadText"] = &lua.api.filereader.readText;
-		lua_["IO", "GetLines"] = &lua.api.filereader.getLines;
+		registerFunction("IO", "ReadText", &readText);
+		registerFunction("IO", "GetLines", &getLines);
+		registerFunction("IO", "CreateOutputFile", &createOutputFile);
+		registerFunction("IO", "CopyFileTo", &copyFileTo);
+		registerFunction("IO", "CopyFileToOutputDir", &copyFileToOutputDir);
+		registerFunction("IO", "RemoveFileFromOutputDir", &removeFileFromOutputDir);
 
-		lua_["IO", "CreateOutputFile"] = &lua.api.filewriter.createOutputFile;
+		registerFunction("UserInput", "HasValueFor", &hasValueFor);
+		registerFunction("UserInput", "GetValueFor", &getValueFor);
+		registerFunction("UserInput", "Prompt", &userInputPrompt);
+		registerFunction("UserInput", "ConfirmationPrompt", &confirmationPrompt);
 
-		lua_["IO", "CopyFileTo"] = &lua.api.fileutils.copyFileTo;
-		lua_["IO", "CopyFileToOutputDir"] = &lua.api.fileutils.copyFileToOutputDir;
-		lua_["IO", "RemoveFileFromOutputDir"] = &lua.api.fileutils.removeFileFromOutputDir;
+		registerFunction("Path", "GetBaseGeneratorDir", &getBaseGeneratorDir);
+		registerFunction("Path", "GetGeneratorDirFor", &getGeneratorDirFor);
+		registerFunction("Path", "GetGeneratorDir", &getGeneratorDir);
+		registerFunction("Path", "GetGeneratorLanguageDir", &getGeneratorLanguageDir);
+		registerFunction("Path", "GetOutputDir", &getOutputDir);
+		registerFunction("Path", "GetGeneratorModulesDir", &getGeneratorModulesDir);
+		registerFunction("Path", "GetModuleDir", &getModuleDir);
+		registerFunction("Path", "GetGeneratorTemplatesDir", &getGeneratorTemplatesDir);
+		registerFunction("Path", "Normalize", &getNormalizedPath);
+		registerFunction("Path", "CreateDirInOutputDir", &createDirInOutputDir);
+		registerFunction("Path", "RemoveDirFromOutputDir", &removeDirFromOutputDir);
+		registerFunction("Path", "DirExists", &dirExists);
+		registerFunction("Path", "OutputDirExists", &outputDirExists);
 
-		lua_["UserInput"] = lua_.newTable;
-		lua_["UserInput", "HasValueFor"] = &inputcollector.hasValueFor;
-		lua_["UserInput", "GetValueFor"] = &inputcollector.getValueFor;
-		lua_["UserInput", "Prompt"] = &inputcollector.userInputPrompt;
-		lua_["UserInput", "ConfirmationPrompt"] = &raijin.cmdline.confirmationPrompt;
-
-		lua_["Path"] = lua_.newTable;
-		lua_["Path", "GetBaseGeneratorDir"] = &lua.api.path.getBaseGeneratorDir;
-		lua_["Path", "GetGeneratorDirFor"] = &lua.api.path.getGeneratorDirFor;
-		lua_["Path", "GetGeneratorDir"] = &getGeneratorDir;
-		lua_["Path", "GetGeneratorLanguageDir"] = &lua.api.path.getGeneratorLanguageDir;
-		lua_["Path", "GetOutputDir"] = &lua.api.path.getOutputDir;
-		lua_["Path", "GetGeneratorModulesDir"] = &getGeneratorModulesDir;
-		lua_["Path", "GetModuleDir"] = &lua.api.path.getModuleDir;
-		lua_["Path", "GetGeneratorTemplatesDir"] = &getGeneratorTemplatesDir;
-		lua_["Path", "Normalize"] = &lua.api.path.getNormalizedPath;
-		lua_["Path", "CreateDirInOutputDir"] = &lua.api.path.createDirInOutputDir;
-		lua_["Path", "RemoveDirFromOutputDir"] = &lua.api.path.removeDirFromOutputDir;
-		lua_["Path", "DirExists"] = &lua.api.path.dirExists;
-		lua_["Path", "OutputDirExists"] = &lua.api.path.outputDirExists;
-
-		lua_["Downloader"] = lua_.newTable;
-		lua_["Downloader", "GetTextFile"] = &lua.api.downloader.getTextFile;
+		registerFunction("Downloader", "GetTextFile", &getTextFile);
 	}
 
 	void setupPackagePaths()
 	{
-		string packagePath = buildNormalizedPath(getInstallDir(), "modules", "?.lua");
+		immutable string baseModulePath = buildNormalizedPath(getInstallDir(), "modules");
+		immutable string genModulePath = buildNormalizedPath(getGeneratorDirFor(language_, generatorName_), "modules");
 
-		packagePath ~= ";" ~ buildNormalizedPath(getGeneratorDirFor(language_, generatorName_), "modules", "?.lua");
-		lua_["package", "path"] = packagePath;
+		registerPackagePaths(baseModulePath, genModulePath);
 	}
 
 	string getGeneratorDir()
@@ -163,7 +155,6 @@ private:
 	}
 
 private:
-	LuaAddon lua_;
 	string language_;
 	string generatorName_;
 	bool generatorLoaded_;

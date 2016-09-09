@@ -45,13 +45,13 @@ bool createProjectDir()
 
 bool startGenerator(const string language, const string generatorName)
 {
-	LuaGenerator generator;
+	LuaGenerator generator = new LuaGenerator;
 	immutable bool succeeded = generator.create(language, generatorName);
 
 	if(succeeded)
 	{
 		immutable bool created = createProjectDir();
-		
+
 		if(created)
 		{
 			generator.processInput();
@@ -61,6 +61,8 @@ bool startGenerator(const string language, const string generatorName)
 	{
 		writeln("Generator not found!");
 	}
+
+	generator.destroy();
 
 	return succeeded;
 }
