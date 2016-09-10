@@ -94,7 +94,7 @@ private:
 			immutable string generatedFilePath = buildNormalizedPath(_Config.getConfigDir("config"), generatedFileName);
 
 			ensureFileExists(generatedFilePath, defaultString);
-			loadFile(generatedFilePath)();
+			loadFile(generatedFilePath);
 		}
 	}
 
