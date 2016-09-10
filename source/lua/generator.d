@@ -3,6 +3,7 @@ module lua.generator;
 import std.path : buildNormalizedPath;
 import std.file : exists;
 import std.datetime : Clock;
+import std.typecons : scoped;
 
 import raijin.utils.file;
 import raijin.cmdline;
@@ -18,6 +19,8 @@ import lua.api.filewriter;
 import lua.api.fileutils;
 import lua.api.downloader;
 import luaaddon;
+
+alias MakeLuaGenerator = scoped!LuaGenerator;
 
 class LuaGenerator : LuaAddon
 {

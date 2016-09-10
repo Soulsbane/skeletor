@@ -5,7 +5,6 @@ import std.array;
 import std.string;
 import std.range;
 import std.path;
-import std.typecons : scoped;
 
 import raijin;
 
@@ -46,7 +45,7 @@ bool createProjectDir()
 
 bool startGenerator(const string language, const string generatorName)
 {
-	auto generator = scoped!LuaGenerator();
+	auto generator = MakeLuaGenerator();
 	immutable bool succeeded = generator.create(language, generatorName);
 
 	if(succeeded)
