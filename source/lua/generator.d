@@ -33,7 +33,7 @@ class LuaGenerator : LuaAddon
 		loadAndExecuteLuaFile(DEFAULT_INIT_FILE_STRING, "init.lua");
 	}
 
-	void destroy()
+	~this()
 	{
 		if(generatorLoaded_)
 		{
