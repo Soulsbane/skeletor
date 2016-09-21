@@ -56,7 +56,7 @@ class LuaGenerator : LuaAddon
 
 			setupLuaEnv();
 			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
-			loadFile(fileName);
+			doFile(fileName);
 			callFunction("OnCreate");
 
 			return true;
@@ -80,8 +80,8 @@ class LuaGenerator : LuaAddon
 private:
 	void loadDefaultModules()
 	{
-		loadFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"));
-		loadFile(buildNormalizedPath(getModuleDir(), "globals.lua"));
+		doFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"));
+		doFile(buildNormalizedPath(getModuleDir(), "globals.lua"));
 	}
 
 	void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)
@@ -90,14 +90,14 @@ private:
 
 		debug
 		{
-			loadString(defaultString);
+			doString(defaultString);
 		}
 		else
 		{
 			immutable string generatedFilePath = buildNormalizedPath(_Config.getConfigDir("config"), generatedFileName);
 
 			ensureFileExists(generatedFilePath, defaultString);
-			loadFile(generatedFilePath);
+			doFile(generatedFilePath);
 		}
 	}
 
