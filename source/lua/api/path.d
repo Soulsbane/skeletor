@@ -95,3 +95,18 @@ bool outputDirExists(const string dir)
 	string file = buildNormalizedPath(getOutputDir(), dir);
 	return file.exists;
 }
+
+string getGeneratorDir()
+{
+	return getGeneratorDirFor(_Config.get("Config", "language", ""), _Config.get("Config", "generator", ""));
+}
+
+string getGeneratorModulesDir()
+{
+	return buildNormalizedPath(getGeneratorDir(), "modules");
+}
+
+string getGeneratorTemplatesDir()
+{
+	return buildNormalizedPath(getGeneratorDir(), "templates");
+}

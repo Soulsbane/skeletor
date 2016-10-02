@@ -142,21 +142,6 @@ private:
 		registerPackagePaths(baseModulePath, genModulePath);
 	}
 
-	string getGeneratorDir()
-	{
-		return getGeneratorDirFor(language_, generatorName_);
-	}
-
-	string getGeneratorModulesDir()
-	{
-		return buildNormalizedPath(getGeneratorDir(), "modules");
-	}
-
-	string getGeneratorTemplatesDir()
-	{
-		return buildNormalizedPath(getGeneratorDir(), "templates");
-	}
-
 private:
 	string language_;
 	string generatorName_;
