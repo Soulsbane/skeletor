@@ -2,16 +2,46 @@ module config;
 
 import std.path : dirName, buildNormalizedPath;
 import std.file : thisExePath;
+import std.typecons : scoped;
 
 import raijin.appconfig;
+import raijin.configpath;
 import raijin.utils.path;
+import raijin.utils.file;
 
-AppConfig _Config;
+import luaaddon.luaconfig;
+
+SkeletorConfig _Config;
+
+class SkeletorConfig : LuaConfig
+{
+	///
+	this()
+	{
+		configPath_ = ConfigPath("Raijinsoft", "skeletor");
+
+		immutable string configFilePath = buildNormalizedPath(configPath_.getConfigDir("config"), "config.lua");
+		immutable string importConfigString = import("default-config.lua");
+
+		ensurePathExists(configPath_.getConfigDir("generators"));
+		ensureFileExists(configFilePath, importConfigString);
+
+		loadFile(configFilePath);
+	}
+
+	auto opDispatch(string functionName, T...)(T args)
+	{
+		static if(__traits(hasMember, ConfigPath, functionName))
+		{
+			return mixin("configPath_." ~ functionName ~ "(args)");
+		}
+	}
+
+private:
+	ConfigPath configPath_;
+}
 
 static this()
 {
-	immutable string defaultConfigFileData = import("default-app.config");
-
-	_Config = AppConfig("Raijinsoft", "skeletor", defaultConfigFileData);
-	ensurePathExists(_Config.path.getConfigDir("generators"));
+	_Config = new SkeletorConfig;
 }

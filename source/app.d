@@ -83,8 +83,8 @@ void create(string language, string generator)
 
 	if(succeeded)
 	{
-		_Config["language"] = language;
-		_Config["generator"] = generator;
+		_Config.set("Config", "generator", generator);
+		_Config.set("Config", "language", language);
 
 		_Config.save();
 	}
