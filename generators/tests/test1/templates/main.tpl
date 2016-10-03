@@ -1,2 +1,3 @@
 From template {{Author}}
-Date: {% print(os.date("%c")) %}
+{% local dateTime = os.date("%c") %}
+Date: {{ dateTime }}
