@@ -113,7 +113,6 @@ private:
 	{
 		foreach(file; toc_.getFilesList())
 		{
-			writeln("Loading file ", file);
 			doFile(buildNormalizedPath(getGeneratorDir(), file));
 		}
 	}
