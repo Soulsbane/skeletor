@@ -1,0 +1,3 @@
+function OnCreate()
+	HelloWorld()
+end

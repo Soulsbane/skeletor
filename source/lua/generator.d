@@ -50,13 +50,23 @@ class LuaGenerator : LuaAddon
 
 		if(fileName.exists)
 		{
+			immutable string tocFileName = buildNormalizedPath(getGeneratorDir(), generatorName) ~ ".toc";
+			immutable bool hasToc = toc_.loadFile(tocFileName);
+
 			language_ = language;
 			generatorName_ = generatorName;
 			generatorLoaded_ = true;
 
 			setupLuaEnv();
 			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
+
+			if(hasToc)
+			{
+				loadTocFiles();
+			}
+
 			doFile(fileName);
+
 			callFunction("OnCreate");
 
 			return true;
@@ -98,6 +108,15 @@ private:
 
 			ensureFileExists(generatedFilePath, defaultString);
 			doFile(generatedFilePath);
+		}
+	}
+
+	void loadTocFiles()
+	{
+		foreach(file; toc_.getFilesList())
+		{
+			writeln("Loading file ", file);
+			doFile(buildNormalizedPath(getGeneratorDir(), file));
 		}
 	}
 
@@ -146,4 +165,5 @@ private:
 	string language_;
 	string generatorName_;
 	bool generatorLoaded_;
+	TocParser toc_;
 }
