@@ -24,8 +24,8 @@ alias MakeLuaGenerator = scoped!LuaGenerator;
 
 class LuaGenerator : LuaAddon
 {
-	enum DEFAULT_PROMPTS_FILE_STRING = import("default-prompts.lua");
-	enum DEFAULT_INIT_FILE_STRING = import("default-init.lua");
+	private enum DEFAULT_PROMPTS_FILE_STRING = import("default-prompts.lua");
+	private enum DEFAULT_INIT_FILE_STRING = import("default-init.lua");
 
 	void setupLuaEnv()
 	{
