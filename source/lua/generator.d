@@ -55,6 +55,7 @@ class LuaGenerator : LuaAddon
 
 			generatorLoaded_ = true;
 
+			mainTable_ = state_.newTable;
 			setupLuaEnv();
 			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
 
@@ -63,7 +64,7 @@ class LuaGenerator : LuaAddon
 				loadTocFiles();
 			}
 
-			doFile(fileName);
+			loadFile(fileName, mainTable_);
 
 			callFunction("OnCreate");
 
@@ -113,7 +114,7 @@ private:
 	{
 		foreach(file; toc_.getFilesList())
 		{
-			doFile(buildNormalizedPath(getGeneratorDir(), file));
+			loadFile(buildNormalizedPath(getGeneratorDir(), file), mainTable_);
 		}
 	}
 
@@ -161,4 +162,5 @@ private:
 private:
 	bool generatorLoaded_;
 	TocParser toc_;
+	LuaTable mainTable_;
 }
