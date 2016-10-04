@@ -46,15 +46,13 @@ class LuaGenerator : LuaAddon
 
 	bool create(const string language, const string generatorName)
 	{
-		immutable string fileName = buildNormalizedPath(getGeneratorDirFor(language, generatorName), generatorName) ~ ".lua";
+		immutable string fileName = buildNormalizedPath(getGeneratorDir(), generatorName) ~ ".lua";
 
 		if(fileName.exists)
 		{
 			immutable string tocFileName = buildNormalizedPath(getGeneratorDir(), generatorName) ~ ".toc";
 			immutable bool hasToc = toc_.loadFile(tocFileName);
 
-			language_ = language;
-			generatorName_ = generatorName;
 			generatorLoaded_ = true;
 
 			setupLuaEnv();
@@ -156,14 +154,12 @@ private:
 	void setupPackagePaths()
 	{
 		immutable string baseModulePath = buildNormalizedPath(getInstallDir(), "modules");
-		immutable string genModulePath = buildNormalizedPath(getGeneratorDirFor(language_, generatorName_), "modules");
+		immutable string genModulePath = buildNormalizedPath(getGeneratorDir(), "modules");
 
 		registerPackagePaths(baseModulePath, genModulePath);
 	}
 
 private:
-	string language_;
-	string generatorName_;
 	bool generatorLoaded_;
 	TocParser toc_;
 }
