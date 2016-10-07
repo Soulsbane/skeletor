@@ -128,11 +128,27 @@ void list()
 	}
 }
 
-/*@CommandHelp("Provides more information about a generator.")
-void info(string language, string name)
+@CommandHelp("Provides more information about a generator.")
+void info(string language, string generatorName)
 {
-	writeln(language, name);
-}*/
+	TocParser parser;
+	immutable string tocFileName = buildNormalizedPath(getGeneratorDirFor(language, generatorName), generatorName.baseName ~ ".toc");
+
+	writeln("Showing information for generator ", generatorName, ":");
+	writeln;
+
+	if(tocFileName.exists)
+	{
+		parser.loadFile(tocFileName);
+
+		writeln("Author - ", parser.getValue("Author"));
+		writeln("Description - ", parser.getValue("Description"));
+	}
+	else
+	{
+		writeln("No information could be found!");
+	}
+}
 
 void main(string[] arguments)
 {
