@@ -129,12 +129,12 @@ void list()
 }
 
 @CommandHelp("Provides more information about a generator.")
-void info(string language, string generatorName)
+void info(string language, string name)
 {
 	TocParser parser;
-	immutable string tocFileName = buildNormalizedPath(getGeneratorDirFor(language, generatorName), generatorName.baseName ~ ".toc");
+	immutable string tocFileName = buildNormalizedPath(getGeneratorDirFor(language, name), name ~ ".toc");
 
-	writeln("Showing information for generator ", generatorName, ":");
+	writeln("Showing information for generator ", name, ":");
 	writeln;
 
 	if(tocFileName.exists)
