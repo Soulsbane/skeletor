@@ -13,6 +13,7 @@ import inputcollector;
 import lua.generator;
 import lua.api.path;
 import lua.extractor;
+import luaaddon.tocparser;
 
 bool createProjectDir()
 {
@@ -102,12 +103,36 @@ void list()
 
 		foreach(generatorName; getDirList(buildNormalizedPath(getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
 		{
-			writeln("  ", generatorName.baseName);
+			TocParser parser;
+			immutable string tocFileName = buildNormalizedPath(generatorName, generatorName.baseName ~ ".toc");
+			string description;
+			///TODO: store baseName
+
+			if(tocFileName.exists)
+			{
+				parser.loadFile(tocFileName);
+				description = parser.getValue("Description");
+			}
+
+			if(description.length)
+			{
+				writeln("  ", generatorName.baseName, " - ", description);
+			}
+			else
+			{
+				writeln("  ", generatorName.baseName);
+			}
 		}
 
 		writeln;
 	}
 }
+
+/*@CommandHelp("Provides more information about a generator.")
+void info(string language, string name)
+{
+	writeln(language, name);
+}*/
 
 void main(string[] arguments)
 {
