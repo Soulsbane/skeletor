@@ -122,7 +122,7 @@ private:
 
 	void setupAPIFunctions()
 	{
-		createNewTable("Helpers", "IO", "UserInput", "Path", "Downloader");
+		createTable("Helpers", "IO", "UserInput", "Path", "Downloader");
 
 		registerFunction("IO", "ReadText", &readText);
 		registerFunction("IO", "GetLines", &getLines);
