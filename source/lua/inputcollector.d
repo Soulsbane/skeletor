@@ -7,8 +7,15 @@ import std.typecons;
 import std.stdio;
 import std.string;
 
-alias CollectedValues = string[string];
+alias CollectedValues = Prompt[string];
 private CollectedValues _Values;
+
+struct Prompt
+{
+	string variableName;
+	string value;
+	bool enabled;
+}
 
 string userInputPrompt(const string globalVarName, const string msg, string defaultValue = string.init)
 {
@@ -28,7 +35,13 @@ string userInputPrompt(const string globalVarName, const string msg, string defa
 		input = defaultValue;
 	}
 
-	_Values[globalVarName] = input.strip;
+	Prompt prompt;
+
+	prompt.variableName = globalVarName;
+	prompt.value = input.strip;
+	prompt.enabled = true;
+
+	_Values[globalVarName] = prompt;
 
 	return input.strip;
 }
@@ -47,10 +60,36 @@ string getValueFor(const string key, string defaultValue = string.init)
 {
 	if(hasValueFor(key))
 	{
-		return _Values[key];
+		return _Values[key].value;
 	}
 
 	return defaultValue;
+}
+
+void enablePrompt(const string name)
+{
+	if(hasValueFor(name))
+	{
+		_Values[name].enabled = true;
+	}
+}
+
+void disablePrompt(const string name)
+{
+	if(hasValueFor(name))
+	{
+		_Values[name].enabled = false;
+	}
+}
+
+bool isPromptEnabled(const string name)
+{
+	if(hasValueFor(name))
+	{
+		return _Values[name].enabled;
+	}
+
+	return false;
 }
 
 CollectedValues collectValues()
