@@ -6,6 +6,7 @@ module inputcollector;
 import std.typecons;
 import std.stdio;
 import std.string;
+import raijin;
 
 alias CollectedValues = Prompt[string];
 private CollectedValues _Values;
@@ -19,29 +20,40 @@ struct Prompt
 
 string userInputPrompt(const string globalVarName, const string msg, string defaultValue = string.init)
 {
-	if(defaultValue == string.init)
-	{
-		writef("%s: ", msg);
-	}
-	else
-	{
-		writef("%s [%s]: ", msg, defaultValue);
-	}
+	bool promptEnabled = true;
+	string input;
 
-	string input = readln();
-
-	if(input == "\x0a") // Only enter was pressed use the default value instead.
+	if(hasValueFor(globalVarName))
 	{
-		input = defaultValue;
+		promptEnabled = _Values[globalVarName].enabled;
 	}
 
-	Prompt prompt;
+	if(promptEnabled) // A generator has disabled this prompt so don't do anything.
+	{
+		if(defaultValue == string.init)
+		{
+			writef("%s: ", msg);
+		}
+		else
+		{
+			writef("%s [%s]: ", msg, defaultValue);
+		}
 
-	prompt.variableName = globalVarName;
-	prompt.value = input.strip;
-	prompt.enabled = true;
+		input = readln();
 
-	_Values[globalVarName] = prompt;
+		if(input == "\x0a") // Only enter was pressed use the default value instead.
+		{
+			input = defaultValue;
+		}
+
+		Prompt prompt;
+
+		prompt.variableName = globalVarName;
+		prompt.value = input.strip;
+		prompt.enabled = true;
+
+		_Values[globalVarName] = prompt;
+	}
 
 	return input.strip;
 }
@@ -70,7 +82,14 @@ void enablePrompt(const string name)
 {
 	if(hasValueFor(name))
 	{
-		_Values[name].enabled = true;
+		_Values[name].enabled = false;
+	}
+	else
+	{
+		Prompt prompt;
+
+		prompt.enabled = true;
+		_Values[name] = prompt;
 	}
 }
 
@@ -79,6 +98,12 @@ void disablePrompt(const string name)
 	if(hasValueFor(name))
 	{
 		_Values[name].enabled = false;
+	}
+	else
+	{
+		Prompt prompt;
+		prompt.enabled = false;
+		_Values[name] = prompt;
 	}
 }
 

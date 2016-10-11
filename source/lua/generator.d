@@ -59,7 +59,6 @@ class LuaGenerator : LuaAddon
 
 			mainTable_ = state_.newTable;
 			setupLuaEnv();
-			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
 
 			if(hasToc)
 			{
@@ -67,8 +66,8 @@ class LuaGenerator : LuaAddon
 			}
 
 			loadFile(fileName, mainTable_);
-
 			callFunction("OnCreate");
+			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
 
 			return true;
 		}
@@ -78,6 +77,7 @@ class LuaGenerator : LuaAddon
 
 	void processInput()
 	{
+		//callFunction("OnCollectValues"); // FIXMEP: Enable later?
 		CollectedValues values = collectValues();
 
 		foreach(key, value; values)
@@ -133,6 +133,8 @@ private:
 
 		registerFunction("UserInput", "HasValueFor", &hasValueFor);
 		registerFunction("UserInput", "GetValueFor", &getValueFor);
+		registerFunction("UserInput", "EnablePrompt", &enablePrompt);
+		registerFunction("UserInput", "DisablePrompt", &disablePrompt);
 		registerFunction("UserInput", "Prompt", &userInputPrompt);
 		registerFunction("UserInput", "ConfirmationPrompt", &confirmationPrompt);
 
