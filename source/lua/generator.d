@@ -50,11 +50,12 @@ class LuaGenerator : LuaAddon
 
 		if(fileName.exists)
 		{
+			language_ = language;
+			generatorName_ = generatorName;
+
 			immutable string tocFileName = buildNormalizedPath(getGeneratorDir(), generatorName) ~ ".toc";
 			immutable bool hasToc = toc_.loadFile(tocFileName);
 
-			language_ = language;
-			generatorName_ = generatorName;
 			generatorLoaded_ = true;
 
 			mainTable_ = state_.newTable;
