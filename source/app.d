@@ -15,28 +15,21 @@ import lua.api.path;
 import lua.extractor;
 import luaaddon.tocparser;
 
-void createProjectDir()
+bool createProjectDir()
 {
 	if(inputcollector.hasValueFor("ProjectName"))
 	{
-		immutable string projectName = inputcollector.getValueFor("ProjectName");
+		immutable string path = buildNormalizedPath(getcwd(), getValueFor("ProjectName"));
 
-		if(!outputDirExists(projectName))
+		if(path.exists)
 		{
-			immutable bool created = createDirInOutputDir(projectName);
-
-			if(created)
-			{
-				writeln(projectName, " was successfully created!");
-			}
-
-			writeln("Failed to create directory: ", projectName);
+			return false;
 		}
-		else
-		{
-			writeln("ERROR: project name, ", projectName, " already exists!");
-		}
+
+		return ensurePathExists(path);
 	}
+
+	return false;
 }
 
 bool startGenerator(const string language, const string generatorName)
@@ -46,8 +39,16 @@ bool startGenerator(const string language, const string generatorName)
 
 	if(succeeded)
 	{
-		generator.processInput();
-		createProjectDir();
+		immutable bool created = createProjectDir();
+
+		if(created)
+		{
+			generator.processInput();
+		}
+		else
+		{
+			writeln("Error: project directory already exists!");
+		}
 	}
 	else
 	{

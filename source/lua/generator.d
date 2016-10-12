@@ -83,7 +83,7 @@ class LuaGenerator : LuaAddon
 
 		foreach(key, value; values)
 		{
-			state_[key] = value;
+			state_[key] = value.value;
 		}
 
 		callFunction("OnProcessInput", values);

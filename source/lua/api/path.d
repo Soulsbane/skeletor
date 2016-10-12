@@ -10,6 +10,7 @@ import std.stdio;
 import luad.all;
 import raijin.utils.path;
 import config;
+import inputcollector;
 
 string getInstallDir()
 {
@@ -54,7 +55,8 @@ string getGeneratorDirFor(const string language = string.init, const string gene
 
 string getOutputDir()
 {
-	return getcwd();
+	//return getcwd();
+	return buildNormalizedPath(getcwd(), getValueFor("ProjectName"));
 }
 
 string getModuleDir()
@@ -77,7 +79,7 @@ string getNormalizedPath(const(char)[][] params...)
 bool createDirInOutputDir(const(char)[][] params...)
 {
 	immutable string path = buildNormalizedPath(params);
-	return ensurePathExists(getOutputDir(), path);
+	return ensurePathExists(buildNormalizedPath(getOutputDir(), path));
 }
 
 bool removeDirFromOutputDir(const string dir)
