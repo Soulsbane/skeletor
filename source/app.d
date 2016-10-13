@@ -44,6 +44,7 @@ bool startGenerator(const string language, const string generatorName)
 		if(created)
 		{
 			generator.processInput();
+			generator.destroy();
 		}
 		else
 		{
