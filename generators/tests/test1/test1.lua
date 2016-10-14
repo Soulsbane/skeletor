@@ -6,6 +6,7 @@ function OnProcessInput(values)
 	for k, v in pairs(values) do
 		print(k, v)
 	end]]
+	print("API Version: ", GetVersion());
 	print(Path.Normalize("this", "is", "a", "test"))
 	print(Helpers.ParseTemplate("main.tpl"))
 

@@ -119,6 +119,7 @@ private:
 
 	void setupAPIFunctions()
 	{
+		registerFunction("GetVersion", &getAPIVersion);
 		createTable("Helpers", "IO", "UserInput", "Path", "Downloader");
 
 		registerFunction("IO", "ReadText", &readText);
