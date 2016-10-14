@@ -13,11 +13,7 @@ import luad.all;
 import config;
 import inputcollector;
 
-import lua.api.path;
-import lua.api.filereader;
-import lua.api.filewriter;
-import lua.api.fileutils;
-import lua.api.downloader;
+import lua.api;
 import luaaddon;
 
 alias MakeLuaGenerator = scoped!LuaGenerator;
