@@ -92,14 +92,14 @@ void list()
 
 	foreach(name; getDirList(getBaseGeneratorDir(), SpanMode.shallow))
 	{
-		writeln("[", name.baseName.capitalize, "]");
+		writeln(name.baseName.capitalize);
 
 		foreach(generatorName; getDirList(buildNormalizedPath(getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
 		{
 			TocParser parser;
-			immutable string tocFileName = buildNormalizedPath(generatorName, generatorName.baseName ~ ".toc");
+			immutable string baseName = generatorName.baseName;
+			immutable string tocFileName = buildNormalizedPath(generatorName, baseName ~ ".toc");
 			string description;
-			///TODO: store baseName
 
 			if(tocFileName.exists)
 			{
@@ -109,11 +109,11 @@ void list()
 
 			if(description.length)
 			{
-				writeln("  ", generatorName.baseName, " - ", description);
+				writeln(" |--", baseName, " - ", description);
 			}
 			else
 			{
-				writeln("  ", generatorName.baseName);
+				writeln(" |--", baseName);
 			}
 		}
 
