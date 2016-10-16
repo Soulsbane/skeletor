@@ -84,6 +84,14 @@ void create(string language, string generator)
 	}
 }
 
+@CommandHelp("Creates a new project.", ["The programming language in which to generate a project."])
+void create(string generator)
+{
+	auto parts = generator.split(".");
+
+	create(parts[0], parts[1]);
+}
+
 @CommandHelp("Lists all the available generators")
 void list()
 {
