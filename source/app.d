@@ -89,7 +89,15 @@ void create(string generator)
 {
 	auto parts = generator.split(".");
 
-	create(parts[0], parts[1]);
+	if(parts.length == 2)
+	{
+		create(parts[0], parts[1]);
+	}
+	else
+	{
+		create("", "");// split contained less than 2 args. Send empty strings so an error no generator found is thrown.
+	}
+
 }
 
 @CommandHelp("Lists all the available generators")
