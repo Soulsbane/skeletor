@@ -84,10 +84,11 @@ void create(string language, string generator)
 	}
 }
 
-@CommandHelp("Creates a new project.", ["The programming language in which to generate a project."])
-void create(string generator)
+@CommandHelp("Creates a new project using the <language>.<generator> format.",
+	["The programming language and generator separated by a dot: <language>.<generator>"])
+void create(string languageAndgenerator)
 {
-	auto parts = generator.split(".");
+	auto parts = languageAndgenerator.split(".");
 
 	if(parts.length == 2)
 	{
