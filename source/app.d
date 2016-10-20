@@ -101,6 +101,12 @@ void create(string languageAndgenerator)
 
 }
 
+@CommandHelp("Creates a new project using the default language and generator found in config.lua.")
+void create()
+{
+	create(_Config.get("Config", "language", "d"), _Config.get("Config", "generator", "raijin"));
+}
+
 @CommandHelp("Lists all the available generators")
 void list()
 {
