@@ -108,32 +108,43 @@ void create()
 }
 
 @CommandHelp("Lists all the available generators")
-void list()
+void list(string language = "all")
 {
 	writeln("The following generators are available:");
 	writeln;
 
+	size_t count;
+
 	foreach(name; getDirList(getBaseGeneratorDir(), SpanMode.shallow))
 	{
-		writeln(name.baseName);
-
-		foreach(generatorName; getDirList(buildNormalizedPath(getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
+		if(language == "all" || name.baseName == language)
 		{
-			TocParser parser;
-			string description = "No description available.";
-			immutable string baseName = generatorName.baseName;
-			immutable string tocFileName = buildNormalizedPath(generatorName, baseName ~ ".toc");
+			++count;
+			writeln(name.baseName);
 
-			if(tocFileName.exists)
+			foreach(generatorName; getDirList(buildNormalizedPath(getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
 			{
-				parser.loadFile(tocFileName);
-				description = parser.getValue("Description");
+				TocParser parser;
+				string description = "No description available.";
+				immutable string baseName = generatorName.baseName;
+				immutable string tocFileName = buildNormalizedPath(generatorName, baseName ~ ".toc");
+
+				if(tocFileName.exists)
+				{
+					parser.loadFile(tocFileName);
+					description = parser.getValue("Description");
+				}
+
+				writeln(" └─", baseName, " - ", description);
 			}
 
-			writeln(" └─", baseName, " - ", description);
+			writeln;
 		}
+	}
 
-		writeln;
+	if(count == 0)
+	{
+		writeln("Could not find any generators using language: ", language);
 	}
 }
 
