@@ -120,9 +120,9 @@ void list()
 		foreach(generatorName; getDirList(buildNormalizedPath(getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
 		{
 			TocParser parser;
+			string description = "No description available.";
 			immutable string baseName = generatorName.baseName;
 			immutable string tocFileName = buildNormalizedPath(generatorName, baseName ~ ".toc");
-			string description;
 
 			if(tocFileName.exists)
 			{
@@ -130,14 +130,7 @@ void list()
 				description = parser.getValue("Description");
 			}
 
-			if(description.length)
-			{
-				writeln(" |--", baseName, " - ", description);
-			}
-			else
-			{
-				writeln(" |--", baseName);
-			}
+			writeln(" └─", baseName, " - ", description);
 		}
 
 		writeln;
