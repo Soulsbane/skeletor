@@ -115,7 +115,7 @@ void list()
 
 	foreach(name; getDirList(getBaseGeneratorDir(), SpanMode.shallow))
 	{
-		writeln(name.baseName.capitalize);
+		writeln(name.baseName);
 
 		foreach(generatorName; getDirList(buildNormalizedPath(getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
 		{
