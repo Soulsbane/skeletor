@@ -15,6 +15,11 @@ function Helpers.ParseAndCreateOutputFile(outputFileName, templateName)
 	IO.CreateOutputFile(outputFileName, data)
 end
 
+function Helpers.DownloadAndCreateTextFile(url, outputFileName)
+	local text = Downloader.GetTextFile(url)
+	IO.CreateOutputFile(outputFileName, text)
+end
+
 function Helpers.PrintColor(...)
 	print(AnsiColors(...))
 end
