@@ -1,0 +1,8 @@
+## Interface: 70100
+## Title: {{ProjectName}}
+## Notes: {{Description}}
+## Author: {{Author}}
+## Version: 1.0
+
+SimpleCore.lua
+{{ProjectName}}.lua
