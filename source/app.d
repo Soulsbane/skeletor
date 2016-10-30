@@ -35,28 +35,31 @@ bool createProjectDir()
 bool startGenerator(const string language, const string generatorName)
 {
 	auto generator = MakeLuaGenerator();
-	immutable bool succeeded = generator.create(language, generatorName);
 
-	if(succeeded)
+	try
 	{
+		generator.create(language, generatorName);
+
 		immutable bool created = createProjectDir();
 
 		if(created)
 		{
 			generator.processInput();
 			generator.destroy();
+
+			return true;
 		}
 		else
 		{
 			writeln("Error: project directory already exists!");
+			return false;
 		}
 	}
-	else
+	catch(Exception ex)
 	{
-		writeln("Generator not found!");
+		writeln(ex.msg);
+		return false;
 	}
-
-	return succeeded;
 }
 
 auto getDirList(const string name, SpanMode mode)

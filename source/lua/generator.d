@@ -4,6 +4,7 @@ import std.path : buildNormalizedPath;
 import std.file : exists;
 import std.datetime : Clock;
 import std.typecons : scoped;
+import std.stdio : writeln;
 
 import raijin.utils.file;
 import raijin.cmdline;
@@ -40,7 +41,7 @@ class LuaGenerator : LuaAddon
 		}
 	}
 
-	bool create(const string language, const string generatorName)
+	void create(const string language, const string generatorName)
 	{
 		immutable string fileName = buildNormalizedPath(getGeneratorDirFor(language, generatorName), generatorName) ~ ".lua";
 
@@ -59,17 +60,25 @@ class LuaGenerator : LuaAddon
 
 			if(hasToc)
 			{
+				immutable size_t appVersion = getAPIVersion();
+				immutable size_t generatorVersion = toc_.getValue!size_t("API-Version", appVersion);
+
+				if(generatorVersion < appVersion)
+				{
+					throw new Exception("This generator is incompatible with this version of skeletor.");
+				}
+
 				loadTocFiles();
 			}
 
 			loadFile(fileName, mainTable_);
 			callFunction("OnCreate");
 			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
-
-			return true;
 		}
-
-		return false;
+		else
+		{
+			throw new Exception("Generator not found!");
+		}
 	}
 
 	void processInput()
