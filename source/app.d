@@ -189,6 +189,7 @@ void info(string languageAndGenerator)
 
 
 }
+
 void main(string[] arguments)
 {
 	extractGenerators();
