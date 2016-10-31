@@ -173,6 +173,22 @@ void info(string language, string name)
 	}
 }
 
+@CommandHelp("Provides more information about a generator.")
+void info(string languageAndGenerator)
+{
+	auto parts = languageAndGenerator.split(".");
+
+	if(parts.length == 2)
+	{
+		info(parts[0], parts[1]);
+	}
+	else
+	{
+		info("", "");// split contained less than 2 args. Send empty strings so an error no generator found is thrown.
+	}
+
+
+}
 void main(string[] arguments)
 {
 	extractGenerators();
