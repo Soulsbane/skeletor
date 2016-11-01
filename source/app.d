@@ -190,6 +190,17 @@ void info(string languageAndGenerator)
 
 }
 
+@CommandHelp("Extracts and overwrites the generators found in the users generator directory.")
+void extract()
+{
+	debug {}
+	else
+	{
+		rmdirRecurse(_Config.getConfigDir("generators"));
+		extractGenerators();
+	}
+}
+
 void main(string[] arguments)
 {
 	extractGenerators();
