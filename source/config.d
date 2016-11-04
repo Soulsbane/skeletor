@@ -1,8 +1,6 @@
 module config;
 
-import std.path : dirName, buildNormalizedPath;
-import std.file : thisExePath;
-import std.typecons : scoped;
+import std.path : buildNormalizedPath;
 
 import raijin.appconfig;
 import raijin.configpath;
