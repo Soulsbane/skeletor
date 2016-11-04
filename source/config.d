@@ -27,7 +27,7 @@ class SkeletorConfig : LuaConfig
 		loadFile(configFilePath);
 	}
 
-	auto opDispatch(string functionName, T...)(T args)
+	auto opDispatch(const string functionName, T...)(T args)
 	{
 		static if(__traits(hasMember, ConfigPath, functionName))
 		{
