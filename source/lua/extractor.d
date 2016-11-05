@@ -18,6 +18,10 @@ enum generatorFilesList =
 	"d/raijin/templates/raijin-gitignore",
 	"tests/test1/test1.lua",
 	"tests/test1/templates/main.tpl",
+	"tests/test2/test2.lua",
+	"tests/test2/test2.toc",
+	"tests/test2/utils.lua"
+	"tests/test3/test3.lua",
 ];
 
 enum moduleFilesList =
