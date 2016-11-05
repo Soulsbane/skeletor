@@ -147,7 +147,7 @@ void list(string language = "all")
 
 	if(count == 0)
 	{
-		writeln("Could not find any generators using language: ", language);
+		writeln("Failed to find any generators for ", language);
 	}
 }
 
