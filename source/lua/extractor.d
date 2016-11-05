@@ -20,8 +20,8 @@ enum generatorFilesList =
 	"tests/test1/templates/main.tpl",
 	"tests/test2/test2.lua",
 	"tests/test2/test2.toc",
-	"tests/test2/utils.lua"
-	"tests/test3/test3.lua",
+	"tests/test2/utils.lua",
+	"tests/test3/test3.lua"
 ];
 
 enum moduleFilesList =
