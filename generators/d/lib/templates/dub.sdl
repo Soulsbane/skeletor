@@ -1,0 +1,8 @@
+name "{{ProjectName}}"
+description "{{Description}}."
+copyright "Copyright © {{Year}}"
+authors "{{Author}}"
+targetType "library"
+configuration "library" {
+	targetType "library"
+}
