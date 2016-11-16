@@ -16,6 +16,16 @@ enum generatorFilesList =
 	"d/raijin/templates/raijin-app.d",
 	"d/raijin/templates/raijin-dub.sdl",
 	"d/raijin/templates/raijin-gitignore",
+
+	"d/lib/lib.lua",
+	"d/lib/templates/dub.sdl",
+	"d/lib/templates/gitignore",
+
+	"d/app/app.lua",
+	"d/app/templates/app.d",
+	"d/app/templates/dub.sdl",
+	"d/app/templates/gitignore",
+
 	"tests/test1/test1.lua",
 	"tests/test1/templates/main.tpl",
 	"tests/test2/test2.lua",
