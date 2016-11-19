@@ -71,6 +71,18 @@ string getModuleDir()
 	}
 }
 
+string getTemplatesDir()
+{
+	debug
+	{
+		return buildNormalizedPath(getInstallDir(), "templates");
+	}
+	else
+	{
+		return _Config.getConfigDir("templates");
+	}
+}
+
 string getNormalizedPath(const(char)[][] params...)
 {
 	return buildNormalizedPath(params);

@@ -152,6 +152,7 @@ private:
 		registerFunction("Path", "GetOutputDir", &getOutputDir);
 		registerFunction("Path", "GetGeneratorModulesDir", &getGeneratorModulesDir);
 		registerFunction("Path", "GetModuleDir", &getModuleDir);
+		registerFunction("Path", "GetTemplatesDir", &getTemplatesDir);
 		registerFunction("Path", "GetGeneratorTemplatesDir", &getGeneratorTemplatesDir);
 		registerFunction("Path", "Normalize", &getNormalizedPath);
 		registerFunction("Path", "CreateDirInOutputDir", &createDirInOutputDir);
