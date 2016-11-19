@@ -55,7 +55,6 @@ string getGeneratorDirFor(const string language = string.init, const string gene
 
 string getOutputDir()
 {
-	//return getcwd();
 	return buildNormalizedPath(getcwd(), getValueFor("ProjectName"));
 }
 
