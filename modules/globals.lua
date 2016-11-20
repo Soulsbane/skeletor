@@ -1,6 +1,7 @@
 --Various functions that are missing from the Lua standard library.
 AnsiColors = require "ansicolors"
 
+--INFO: The various write* functions should only be used if you need color in your output.
 function writeln(...)
 	print(AnsiColors(...))
 end
