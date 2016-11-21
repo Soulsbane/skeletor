@@ -1,5 +1,5 @@
-import std.stdio : writeln;
-import std.file;
+import std.stdio : writeln, write;
+import std.file : exists, SpanMode, dirEntries, getcwd, rmdirRecurse;
 import std.algorithm;
 import std.array;
 import std.string;
@@ -196,8 +196,10 @@ void extract()
 	debug {}
 	else
 	{
+		write("Extracting generators...");
 		rmdirRecurse(_Config.getConfigDir("generators"));
 		extractGenerators();
+		writeln("Finished!");
 	}
 }
 
