@@ -83,7 +83,6 @@ class LuaGenerator : LuaAddon
 
 	void processInput()
 	{
-		//callFunction("OnCollectValues"); // FIXMEP: Enable later?
 		CollectedValues values = collectValues();
 
 		foreach(key, value; values)
