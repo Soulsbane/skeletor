@@ -1,6 +1,7 @@
-{{ProjectName}}
 .dub
 docs.json
 __dummy.html
 *.o
 *.obj
+*.a
+__test__library__
