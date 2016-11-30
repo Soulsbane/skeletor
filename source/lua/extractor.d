@@ -26,6 +26,10 @@ enum generatorFilesList =
 	"d/app/templates/dub.sdl",
 	"d/app/templates/gitignore",
 
+	"wow/simplecore/templates/addon.lua",
+	"wow/simplecore/templates/template.toc",
+	"wow/simplecore/simplecore.lua",
+
 	"tests/test1/test1.lua",
 	"tests/test1/templates/main.tpl",
 	"tests/test2/test2.lua",
