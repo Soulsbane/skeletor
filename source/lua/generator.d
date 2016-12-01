@@ -43,14 +43,15 @@ class LuaGenerator : LuaAddon
 
 	void create(const string language, const string generatorName)
 	{
-		immutable string fileName = buildNormalizedPath(getGeneratorDirFor(language, generatorName), generatorName) ~ ".lua";
+		immutable string fileName = buildNormalizedPath(paths_.getGeneratorDirFor(language, generatorName), generatorName) ~ ".lua";
 
 		if(fileName.exists)
 		{
 			language_ = language;
 			generatorName_ = generatorName;
+			paths_.setLanguageAndGeneratorName(language, generatorName);
 
-			immutable string tocFileName = buildNormalizedPath(getGeneratorDir(), generatorName) ~ ".toc";
+			immutable string tocFileName = buildNormalizedPath(paths_.getGeneratorDir(), generatorName) ~ ".toc";
 			immutable bool hasToc = toc_.loadFile(tocFileName);
 
 			generatorLoaded_ = true;
@@ -96,8 +97,8 @@ class LuaGenerator : LuaAddon
 private:
 	void loadDefaultModules()
 	{
-		doFile(buildNormalizedPath(getModuleDir(), "resty", "template.lua"));
-		doFile(buildNormalizedPath(getModuleDir(), "globals.lua"));
+		doFile(buildNormalizedPath(paths_.getModuleDir(), "resty", "template.lua"));
+		doFile(buildNormalizedPath(paths_.getModuleDir(), "globals.lua"));
 	}
 
 	void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)
@@ -121,7 +122,7 @@ private:
 	{
 		foreach(file; toc_.getFilesList())
 		{
-			loadFile(buildNormalizedPath(getGeneratorDir(), file), mainTable_);
+			loadFile(buildNormalizedPath(paths_.getGeneratorDir(), file), mainTable_);
 		}
 	}
 
@@ -135,7 +136,7 @@ private:
 		registerFunction("IO", "CreateOutputFile", &createOutputFile);
 		registerFunction("IO", "CopyFileTo", &copyFileTo);
 		registerFunction("IO", "CopyFileToOutputDir", &copyFileToOutputDir);
-		registerFunction("IO", "RemoveFileFromOutputDir", &removeFileFromOutputDir);
+		registerFunction("IO", "RemoveFileFromOutputDir", &paths_.removeFileFromOutputDir);
 
 		registerFunction("UserInput", "HasValueFor", &hasValueFor);
 		registerFunction("UserInput", "GetValueFor", &getValueFor);
@@ -144,45 +145,30 @@ private:
 		registerFunction("UserInput", "Prompt", &userInputPrompt);
 		registerFunction("UserInput", "ConfirmationPrompt", &confirmationPrompt);
 
-		registerFunction("Path", "GetBaseGeneratorDir", &getBaseGeneratorDir);
-		registerFunction("Path", "GetGeneratorDirFor", &getGeneratorDirFor);
-		registerFunction("Path", "GetGeneratorDir", &getGeneratorDir);
-		registerFunction("Path", "GetGeneratorLanguageDir", &getGeneratorLanguageDir);
-		registerFunction("Path", "GetOutputDir", &getOutputDir);
-		registerFunction("Path", "GetGeneratorModulesDir", &getGeneratorModulesDir);
-		registerFunction("Path", "GetModuleDir", &getModuleDir);
-		registerFunction("Path", "GetTemplatesDir", &getTemplatesDir);
-		registerFunction("Path", "GetGeneratorTemplatesDir", &getGeneratorTemplatesDir);
-		registerFunction("Path", "Normalize", &getNormalizedPath);
-		registerFunction("Path", "CreateDirInOutputDir", &createDirInOutputDir);
-		registerFunction("Path", "RemoveDirFromOutputDir", &removeDirFromOutputDir);
-		registerFunction("Path", "DirExists", &dirExists);
-		registerFunction("Path", "OutputDirExists", &outputDirExists);
+		registerFunction("Path", "GetBaseGeneratorDir", &paths_.getBaseGeneratorDir);
+		registerFunction("Path", "GetGeneratorDirFor", &paths_.getGeneratorDirFor);
+		registerFunction("Path", "GetGeneratorDir", &paths_.getGeneratorDir);
+		registerFunction("Path", "GetGeneratorLanguageDir", &paths_.getGeneratorLanguageDir);
+		registerFunction("Path", "GetOutputDir", &paths_.getOutputDir);
+		registerFunction("Path", "GetGeneratorModulesDir", &paths_.getGeneratorModulesDir);
+		registerFunction("Path", "GetModuleDir", &paths_.getModuleDir);
+		registerFunction("Path", "GetTemplatesDir", &paths_.getTemplatesDir);
+		registerFunction("Path", "GetGeneratorTemplatesDir", &paths_.getGeneratorTemplatesDir);
+		registerFunction("Path", "Normalize", &paths_.getNormalizedPath);
+		registerFunction("Path", "CreateDirInOutputDir", &paths_.createDirInOutputDir);
+		registerFunction("Path", "RemoveDirFromOutputDir", &paths_.removeDirFromOutputDir);
+		registerFunction("Path", "DirExists", &paths_.dirExists);
+		registerFunction("Path", "OutputDirExists", &paths_.outputDirExists);
 
 		registerFunction("Downloader", "GetTextFile", &getTextFile);
 	}
 
 	void setupPackagePaths()
 	{
-		immutable string baseModulePath = buildNormalizedPath(getInstallDir(), "modules");
-		immutable string genModulePath = buildNormalizedPath(getGeneratorDirFor(language_, generatorName_), "modules");
+		immutable string baseModulePath = buildNormalizedPath(paths_.getInstallDir(), "modules");
+		immutable string genModulePath = buildNormalizedPath(paths_.getGeneratorDirFor(language_, generatorName_), "modules");
 
 		registerPackagePaths(baseModulePath, genModulePath);
-	}
-
-	string getGeneratorDir()
-	{
-		return getGeneratorDirFor(language_, generatorName_);
-	}
-
-	string getGeneratorModulesDir()
-	{
-		return buildNormalizedPath(getGeneratorDir(), "modules");
-	}
-
-	string getGeneratorTemplatesDir()
-	{
-		return buildNormalizedPath(getGeneratorDir(), "templates");
 	}
 
 private:
@@ -191,4 +177,5 @@ private:
 	bool generatorLoaded_;
 	TocParser toc_;
 	LuaTable mainTable_;
+	ApplicationPaths paths_;
 }

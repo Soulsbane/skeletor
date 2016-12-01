@@ -113,19 +113,21 @@ void create()
 @CommandHelp("Lists all the available generators")
 void list(string language = "all")
 {
+	ApplicationPaths paths;
+
 	writeln("The following generators are available:");
 	writeln;
 
 	size_t count;
 
-	foreach(name; getDirList(getBaseGeneratorDir(), SpanMode.shallow))
+	foreach(name; getDirList(paths.getBaseGeneratorDir(), SpanMode.shallow))
 	{
 		if(language == "all" || name.baseName == language)
 		{
 			++count;
 			writeln(name.baseName);
 
-			foreach(generatorName; getDirList(buildNormalizedPath(getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
+			foreach(generatorName; getDirList(buildNormalizedPath(paths.getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
 			{
 				TocParser parser;
 				string description = "No description available.";
@@ -155,7 +157,8 @@ void list(string language = "all")
 void info(string language, string name)
 {
 	TocParser parser;
-	immutable string tocFileName = buildNormalizedPath(getGeneratorDirFor(language, name), name ~ ".toc");
+	ApplicationPaths paths;
+	immutable string tocFileName = buildNormalizedPath(paths.getGeneratorDirFor(language, name), name ~ ".toc");
 
 	writeln("Showing information for generator ", name, ":");
 	writeln;

@@ -5,106 +5,141 @@ module lua.api.path;
 
 import std.file : exists, getcwd, thisExePath;
 import std.path : dirName, buildNormalizedPath;
-import std.stdio;
 
-import luad.all;
 import raijin.utils.path;
+import raijin.utils.file;
 import config;
 import inputcollector;
 
-string getInstallDir()
+struct ApplicationPaths
 {
-	return dirName(thisExePath());
-}
+public:
 
-string getBaseGeneratorDir()
-{
-	debug
+	void setLanguageAndGeneratorName(const string language, const string name)
 	{
-		return buildNormalizedPath(getInstallDir(), "generators");
+		language_ = language;
+		generatorName_ = name;
 	}
-	else
+
+	string getInstallDir()
 	{
-		return _Config.getConfigDir("generators");
+		return dirName(thisExePath());
 	}
-}
 
-string getGeneratorLanguageDir(const string language = string.init)
-{
-	debug
+	string getBaseGeneratorDir()
 	{
-		return buildNormalizedPath(getInstallDir(), "generators", language);
+		debug
+		{
+			return buildNormalizedPath(getInstallDir(), "generators");
+		}
+		else
+		{
+			return _Config.getConfigDir("generators");
+		}
 	}
-	else
+
+	string getGeneratorLanguageDir(const string language = string.init)
 	{
-		return _Config.getConfigDir("generators", language);
+		debug
+		{
+			return buildNormalizedPath(getInstallDir(), "generators", language);
+		}
+		else
+		{
+			return _Config.getConfigDir("generators", language);
+		}
 	}
-}
 
-string getGeneratorDirFor(const string language = string.init, const string generatorName = string.init)
-{
-	debug
+	string getGeneratorDirFor(const string language = string.init, const string generatorName = string.init)
 	{
-		return buildNormalizedPath(getInstallDir(), "generators", language, generatorName);
+		debug
+		{
+			return buildNormalizedPath(getInstallDir(), "generators", language, generatorName);
+		}
+		else
+		{
+			return _Config.getConfigDir("generators", language, generatorName);
+		}
 	}
-	else
+
+	string getOutputDir()
 	{
-		return _Config.getConfigDir("generators", language, generatorName);
+		return buildNormalizedPath(getcwd(), getValueFor("ProjectName"));
 	}
-}
 
-string getOutputDir()
-{
-	return buildNormalizedPath(getcwd(), getValueFor("ProjectName"));
-}
-
-string getModuleDir()
-{
-	debug
+	string getModuleDir()
 	{
-		return buildNormalizedPath(getInstallDir(), "modules");
+		debug
+		{
+			return buildNormalizedPath(getInstallDir(), "modules");
+		}
+		else
+		{
+			return _Config.getConfigDir("modules");
+		}
 	}
-	else
+
+	string getTemplatesDir()
 	{
-		return _Config.getConfigDir("modules");
+		debug
+		{
+			return buildNormalizedPath(getInstallDir(), "templates");
+		}
+		else
+		{
+			return _Config.getConfigDir("templates");
+		}
 	}
-}
 
-string getTemplatesDir()
-{
-	debug
+	string getNormalizedPath(const(char)[][] params...)
 	{
-		return buildNormalizedPath(getInstallDir(), "templates");
+		return buildNormalizedPath(params);
 	}
-	else
+
+	bool createDirInOutputDir(const(char)[][] params...)
 	{
-		return _Config.getConfigDir("templates");
+		immutable string path = buildNormalizedPath(params);
+		return ensurePathExists(buildNormalizedPath(getOutputDir(), path));
 	}
-}
 
-string getNormalizedPath(const(char)[][] params...)
-{
-	return buildNormalizedPath(params);
-}
+	bool removeDirFromOutputDir(const string dir)
+	{
+		return removePathIfExists(getOutputDir(), dir);
+	}
 
-bool createDirInOutputDir(const(char)[][] params...)
-{
-	immutable string path = buildNormalizedPath(params);
-	return ensurePathExists(buildNormalizedPath(getOutputDir(), path));
-}
+	void removeFileFromOutputDir(string fileName)
+	{
+		string file = buildNormalizedPath(getOutputDir(), fileName);
+		removeFileIfExists(file);
+	}
 
-bool removeDirFromOutputDir(const string dir)
-{
-	return removePathIfExists(getOutputDir(), dir);
-}
+	bool dirExists(const string dir) const
+	{
+		return dir.exists;
+	}
 
-bool dirExists(const string dir)
-{
-	return dir.exists;
-}
+	bool outputDirExists(const string dir)
+	{
+		string file = buildNormalizedPath(getOutputDir(), dir);
+		return file.exists;
+	}
 
-bool outputDirExists(const string dir)
-{
-	string file = buildNormalizedPath(getOutputDir(), dir);
-	return file.exists;
+	string getGeneratorDir()
+	{
+		return getGeneratorDirFor(language_, generatorName_);
+	}
+
+	string getGeneratorModulesDir()
+	{
+		return buildNormalizedPath(getGeneratorDir(), "modules");
+	}
+
+	string getGeneratorTemplatesDir()
+	{
+		return buildNormalizedPath(getGeneratorDir(), "templates");
+	}
+
+private:
+	string language_;
+	string generatorName_;
 }

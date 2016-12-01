@@ -14,11 +14,13 @@ import raijin.utils.path;
 
 void createOutputFile(const string fileName, const string data)
 {
+	ApplicationPaths paths;
+
 	if(fileName.canFind(dirSeparator))
 	{
-		ensurePathExists(getOutputDir(), dirName(fileName));
+		ensurePathExists(paths.getOutputDir(), dirName(fileName));
 	}
 
-	immutable string outputFileName = buildNormalizedPath(getOutputDir(), fileName);
+	immutable string outputFileName = buildNormalizedPath(paths.getOutputDir(), fileName);
 	ensureFileExists(outputFileName, data);
 }
