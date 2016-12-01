@@ -7,6 +7,7 @@ import std.file : copy, PreserveAttributes, getcwd, exists, remove;
 import std.path : baseName, buildNormalizedPath;
 
 import raijin.utils.file : removeFileIfExists;
+import lua.api.path;
 
 void copyFileTo(string from, string to) @trusted
 {
@@ -16,4 +17,12 @@ void copyFileTo(string from, string to) @trusted
 void copyFileToOutputDir(string fileName) @trusted
 {
 	copy(fileName, buildNormalizedPath(getcwd(), baseName(fileName)), PreserveAttributes.yes);
+}
+
+void removeFileFromOutputDir(string fileName)
+{
+	ApplicationPaths paths;
+	string file = buildNormalizedPath(paths.getOutputDir(), fileName);
+
+	removeFileIfExists(file);
 }

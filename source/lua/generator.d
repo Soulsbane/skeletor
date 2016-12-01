@@ -136,7 +136,7 @@ private:
 		registerFunction("IO", "CreateOutputFile", &createOutputFile);
 		registerFunction("IO", "CopyFileTo", &copyFileTo);
 		registerFunction("IO", "CopyFileToOutputDir", &copyFileToOutputDir);
-		registerFunction("IO", "RemoveFileFromOutputDir", &paths_.removeFileFromOutputDir);
+		registerFunction("IO", "RemoveFileFromOutputDir", &removeFileFromOutputDir);
 
 		registerFunction("UserInput", "HasValueFor", &hasValueFor);
 		registerFunction("UserInput", "GetValueFor", &getValueFor);

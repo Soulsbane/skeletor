@@ -107,12 +107,6 @@ public:
 		return removePathIfExists(getOutputDir(), dir);
 	}
 
-	void removeFileFromOutputDir(string fileName)
-	{
-		string file = buildNormalizedPath(getOutputDir(), fileName);
-		removeFileIfExists(file);
-	}
-
 	bool dirExists(const string dir) const
 	{
 		return dir.exists;
