@@ -96,6 +96,12 @@ public:
 		return buildNormalizedPath(params);
 	}
 
+	bool createDirInGeneratorDir(const(char)[][] params...)
+	{
+		immutable string path = buildNormalizedPath(params);
+		return ensurePathExists(buildNormalizedPath(getBaseGeneratorDir(), path));
+	}
+
 	bool createDirInOutputDir(const(char)[][] params...)
 	{
 		immutable string path = buildNormalizedPath(params);

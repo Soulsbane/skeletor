@@ -1,6 +1,6 @@
 module lua.api;
 
-private enum API_VERSION = 10100;
+private enum API_VERSION = 10200;
 
 size_t getAPIVersion()
 {
