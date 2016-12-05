@@ -1,0 +1,3 @@
+## Author: Paul Crane
+## Name: Skeletor Generator
+## Description: Creates a template for use in creating a Skeletor generator.
