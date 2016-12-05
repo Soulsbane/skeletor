@@ -156,6 +156,7 @@ private:
 		registerFunction("Path", "GetGeneratorTemplatesDir", &paths_.getGeneratorTemplatesDir);
 		registerFunction("Path", "Normalize", &paths_.getNormalizedPath);
 		registerFunction("Path", "CreateDirInGeneratorDir", &paths_.createDirInGeneratorDir);
+		registerFunction("Path", "CreateDirInGeneratorLanguageDir", &paths_.createDirInGeneratorLanguageDir);
 		registerFunction("Path", "CreateDirInOutputDir", &paths_.createDirInOutputDir);
 		registerFunction("Path", "RemoveDirFromOutputDir", &paths_.removeDirFromOutputDir);
 		registerFunction("Path", "DirExists", &paths_.dirExists);

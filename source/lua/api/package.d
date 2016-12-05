@@ -6,7 +6,7 @@ module lua.api;
 // The Revision will only be changed in the event that an API was modified in how it's called or how it works
 // internally if it differs.
 // So using 10200 as an example when changed to a string it would be 1.02.00
-private enum API_VERSION = 10200;
+private enum API_VERSION = 10300;
 
 size_t getAPIVersion()
 {
