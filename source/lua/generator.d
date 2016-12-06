@@ -2,7 +2,6 @@ module lua.generator;
 
 import std.path : buildNormalizedPath;
 import std.file : exists;
-import std.datetime : Clock;
 import std.typecons : scoped;
 import std.stdio : writeln;
 
