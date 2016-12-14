@@ -52,7 +52,10 @@ void extractGenerators()
 	{}
 	else
 	{
-		extractImportFiles!generatorFilesList(getBaseGeneratorDir());
-		extractImportFiles!moduleFilesList(getModuleDir());
+
+		ApplicationPaths paths;
+
+		extractImportFiles!generatorFilesList(paths.getBaseGeneratorDir());
+		extractImportFiles!moduleFilesList(paths.getModuleDir());
 	}
 }
