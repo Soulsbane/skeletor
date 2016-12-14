@@ -52,7 +52,6 @@ void extractGenerators()
 	{}
 	else
 	{
-
 		ApplicationPaths paths;
 
 		extractImportFiles!generatorFilesList(paths.getBaseGeneratorDir());
