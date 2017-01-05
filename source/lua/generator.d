@@ -93,7 +93,7 @@ class LuaGenerator : LuaAddon
 		callFunction("OnProcessInput", values);
 	}
 
-	void disableProjectDir()
+	void disableProjectDir() pure @safe
 	{
 		disableProjectDir_ = true;
 	}
