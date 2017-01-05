@@ -59,6 +59,9 @@ bool startGenerator(const string language, const string generatorName)
 		}
 		else
 		{
+			generator.processInput();
+			generator.destroy();
+
 			return true; // Project directory creation was disabled.
 		}
 	}
