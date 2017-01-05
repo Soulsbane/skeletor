@@ -93,6 +93,16 @@ class LuaGenerator : LuaAddon
 		callFunction("OnProcessInput", values);
 	}
 
+	void disableProjectDir()
+	{
+		disableProjectDir_ = true;
+	}
+
+	bool isProjectDirDisabled() const pure @safe
+	{
+		return disableProjectDir_;
+	}
+
 private:
 	void loadDefaultModules()
 	{
@@ -161,6 +171,9 @@ private:
 		registerFunction("Path", "DirExists", &paths_.dirExists);
 		registerFunction("Path", "OutputDirExists", &paths_.outputDirExists);
 
+		registerFunction("DisableProjectDir", &disableProjectDir);
+		registerFunction("IsProjectDirDisabled", &isProjectDirDisabled);
+
 		registerFunction("Downloader", "GetTextFile", &getTextFile);
 	}
 
@@ -176,6 +189,7 @@ private:
 	string language_;
 	string generatorName_;
 	bool generatorLoaded_;
+	bool disableProjectDir_;
 	TocParser toc_;
 	LuaTable mainTable_;
 	ApplicationPaths paths_;

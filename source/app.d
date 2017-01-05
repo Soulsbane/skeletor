@@ -40,19 +40,26 @@ bool startGenerator(const string language, const string generatorName)
 	{
 		generator.create(language, generatorName);
 
-		immutable bool created = createProjectDir();
-
-		if(created)
+		if(!generator.isProjectDirDisabled())
 		{
-			generator.processInput();
-			generator.destroy();
+			immutable bool created = createProjectDir();
 
-			return true;
+			if(created)
+			{
+				generator.processInput();
+				generator.destroy();
+
+				return true;
+			}
+			else
+			{
+				writeln("Error: project directory already exists!");
+				return false;
+			}
 		}
 		else
 		{
-			writeln("Error: project directory already exists!");
-			return false;
+			return true; // Project directory creation was disabled.
 		}
 	}
 	catch(Exception ex)
