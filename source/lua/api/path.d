@@ -96,10 +96,9 @@ public:
 		return buildNormalizedPath(params);
 	}
 
-	bool createDirInGeneratorDir(const(char)[][] params...)
+	bool createDirInGeneratorDir(const string language, const string generatorName)
 	{
-		immutable string path = buildNormalizedPath(params);
-		return ensurePathExists(buildNormalizedPath(getBaseGeneratorDir(), path));
+		return ensurePathExists(buildNormalizedPath(getBaseGeneratorDir(), language, generatorName));
 	}
 
 	bool createDirInGeneratorLanguageDir(const(char)[][] params...)
