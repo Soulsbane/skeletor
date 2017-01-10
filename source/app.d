@@ -191,16 +191,23 @@ void info(string languageAndGenerator)
 {
 	auto parts = languageAndGenerator.split(".");
 
-	if(parts.length == 2)
+	switch(parts.length)
 	{
-		info(parts[0], parts[1]);
+		case 1:
+			info(parts[0], string.init);
+			break;
+		case 2:
+			info(parts[0], parts[1]);
+			break;
+		default:
+			info();
 	}
-	else
-	{
-		info("", "");// split contained less than 2 args. Send empty strings so an error no generator found is thrown.
-	}
+}
 
-
+@CommandHelp("Provides more information about a generator.")
+void info()
+{
+	writeln("No generator specified! Use 'skeletor list' for a list of generators.");
 }
 
 @CommandHelp("Extracts and overwrites the generators found in the users generator directory.")
