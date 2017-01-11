@@ -189,7 +189,7 @@ void info(string language, string name)
 @CommandHelp("Provides more information about a generator.")
 void info(string languageAndGenerator)
 {
-	auto parts = languageAndGenerator.split(".");
+	immutable auto parts = languageAndGenerator.split(".");
 
 	switch(parts.length)
 	{
