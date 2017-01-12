@@ -15,6 +15,11 @@ function Helpers.ParseAndCreateOutputFile(outputFileName, templateName)
 	IO.CreateOutputFile(outputFileName, data)
 end
 
+function Helpers.ParseAndCreateGeneratorFile(language, generatorName, outputFileName, templateName)
+	local data = Helpers.ParseTemplate(templateName)
+	IO.CreateGeneratorFile(language, generatorName, outputFileName, data)
+end
+
 function Helpers.DownloadAndCreateTextFile(url, outputFileName)
 	local text = Downloader.GetTextFile(url)
 	IO.CreateOutputFile(outputFileName, text)

@@ -143,6 +143,7 @@ private:
 		registerFunction("IO", "ReadText", &readText);
 		registerFunction("IO", "GetLines", &getLines);
 		registerFunction("IO", "CreateOutputFile", &createOutputFile);
+		registerFunction("IO", "CreateGeneratorFile", &createGeneratorFile);
 		registerFunction("IO", "CopyFileTo", &copyFileTo);
 		registerFunction("IO", "CopyFileToOutputDir", &copyFileToOutputDir);
 		registerFunction("IO", "RemoveFileFromOutputDir", &removeFileFromOutputDir);

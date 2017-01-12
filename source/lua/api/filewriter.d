@@ -1,5 +1,5 @@
 /**
-	Provides various file writing related API functions for use with Lua.
+	Provides various file writing related API functions.
 */
 module lua.api.filewriter;
 
@@ -22,5 +22,15 @@ void createOutputFile(const string fileName, const string data)
 	}
 
 	immutable string outputFileName = buildNormalizedPath(paths.getOutputDir(), fileName);
+	ensureFileExists(outputFileName, data);
+}
+
+void createGeneratorFile(const string language, const string generatorName, const string fileName, const string data)
+{
+	ApplicationPaths paths;
+
+	ensurePathExists(paths.getGeneratorDirFor(language, generatorName));
+
+	immutable string outputFileName = buildNormalizedPath(paths.getGeneratorDirFor(language, generatorName), fileName);
 	ensureFileExists(outputFileName, data);
 }
