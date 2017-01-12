@@ -83,6 +83,7 @@ class LuaGenerator : LuaAddon
 
 	void processInput()
 	{
+		callFunction("OnProcessInput");
 		CollectedValues values = collectValues();
 
 		foreach(key, value; values)
@@ -90,7 +91,7 @@ class LuaGenerator : LuaAddon
 			state_[key] = value.value;
 		}
 
-		callFunction("OnProcessInput", values);
+		callFunction("OnFinishedInput", values);
 	}
 
 	void disableProjectDir() pure @safe
