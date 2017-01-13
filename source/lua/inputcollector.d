@@ -68,14 +68,14 @@ bool hasValueFor(const string key)
 	return false;
 }
 
-string getValueFor(const string key, string defaultValue = string.init)
+string getValueFor(const string key)
 {
 	if(hasValueFor(key))
 	{
 		return _Values[key].value;
 	}
 
-	return defaultValue;
+	return string.init;
 }
 
 void enablePrompt(const string name)
