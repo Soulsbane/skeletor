@@ -50,7 +50,7 @@ string userInputPrompt(const string globalVarName, const string msg, string defa
 
 		prompt.variableName = globalVarName;
 		prompt.value = input.strip;
-		prompt.enabled = true;
+		prompt.enabled = promptEnabled;
 
 		_Values[globalVarName] = prompt;
 	}
@@ -102,6 +102,8 @@ void disablePrompt(const string name)
 	else
 	{
 		Prompt prompt;
+
+		prompt.variableName = name;
 		prompt.enabled = false;
 		_Values[name] = prompt;
 	}
