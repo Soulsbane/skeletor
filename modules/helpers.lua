@@ -1,4 +1,5 @@
 local Helpers = Helpers
+local UserInput = UserInput
 
 TemplateParser = require "resty.template"
 AnsiColors = require "ansicolors"
@@ -27,6 +28,11 @@ end
 
 function Helpers.PrintColor(...)
 	print(AnsiColors(...))
+end
+
+function UserInput.Prompt(globalVarName, msg, defaultValue)
+	local defaultValue = defaultValue or ""
+	UserInput.PromptWithDefault(globalVarName, msg, defaultValue)
 end
 
 return Helpers

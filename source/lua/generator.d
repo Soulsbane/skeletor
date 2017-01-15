@@ -153,8 +153,9 @@ private:
 		registerFunction("UserInput", "GetValueFor", &getValueFor);
 		registerFunction("UserInput", "EnablePrompt", &enablePrompt);
 		registerFunction("UserInput", "DisablePrompt", &disablePrompt);
-		registerFunction("UserInput", "Prompt", &userInputPrompt);
 		registerFunction("UserInput", "ConfirmationPrompt", &confirmationPrompt);
+		// NOTE: The UserInput.Prompt function is implemented in Lua due to no function overloading on Lua side.
+		registerFunction("UserInput", "PromptWithDefault", &userInputPrompt);
 
 		registerFunction("Path", "GetBaseGeneratorDir", &paths_.getBaseGeneratorDir);
 		registerFunction("Path", "GetGeneratorDirFor", &paths_.getGeneratorDirFor);
