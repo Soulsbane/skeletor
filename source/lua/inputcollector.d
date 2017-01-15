@@ -50,7 +50,7 @@ string userInputPrompt(const string globalVarName, const string msg, string defa
 
 		prompt.variableName = globalVarName;
 		prompt.value = input.strip;
-		prompt.enabled = true;
+		prompt.enabled = promptEnabled;
 
 		_Values[globalVarName] = prompt;
 	}
@@ -68,14 +68,14 @@ bool hasValueFor(const string key)
 	return false;
 }
 
-string getValueFor(const string key, string defaultValue = string.init)
+string getValueFor(const string key)
 {
 	if(hasValueFor(key))
 	{
 		return _Values[key].value;
 	}
 
-	return defaultValue;
+	return string.init;
 }
 
 void enablePrompt(const string name)
@@ -102,6 +102,8 @@ void disablePrompt(const string name)
 	else
 	{
 		Prompt prompt;
+
+		prompt.variableName = name;
 		prompt.enabled = false;
 		_Values[name] = prompt;
 	}

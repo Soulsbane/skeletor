@@ -83,6 +83,7 @@ class LuaGenerator : LuaAddon
 
 	void processInput()
 	{
+		callFunction("OnProcessInput");
 		CollectedValues values = collectValues();
 
 		foreach(key, value; values)
@@ -90,7 +91,7 @@ class LuaGenerator : LuaAddon
 			state_[key] = value.value;
 		}
 
-		callFunction("OnProcessInput", values);
+		callFunction("OnFinishedInput", values);
 	}
 
 	void disableProjectDir() pure @safe
@@ -143,6 +144,7 @@ private:
 		registerFunction("IO", "ReadText", &readText);
 		registerFunction("IO", "GetLines", &getLines);
 		registerFunction("IO", "CreateOutputFile", &createOutputFile);
+		registerFunction("IO", "CreateGeneratorFile", &createGeneratorFile);
 		registerFunction("IO", "CopyFileTo", &copyFileTo);
 		registerFunction("IO", "CopyFileToOutputDir", &copyFileToOutputDir);
 		registerFunction("IO", "RemoveFileFromOutputDir", &removeFileFromOutputDir);
@@ -151,8 +153,9 @@ private:
 		registerFunction("UserInput", "GetValueFor", &getValueFor);
 		registerFunction("UserInput", "EnablePrompt", &enablePrompt);
 		registerFunction("UserInput", "DisablePrompt", &disablePrompt);
-		registerFunction("UserInput", "Prompt", &userInputPrompt);
 		registerFunction("UserInput", "ConfirmationPrompt", &confirmationPrompt);
+		// NOTE: The UserInput.Prompt function is implemented in Lua due to no function overloading on Lua side.
+		registerFunction("UserInput", "PromptWithDefault", &userInputPrompt);
 
 		registerFunction("Path", "GetBaseGeneratorDir", &paths_.getBaseGeneratorDir);
 		registerFunction("Path", "GetGeneratorDirFor", &paths_.getGeneratorDirFor);

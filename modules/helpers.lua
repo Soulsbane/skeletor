@@ -1,4 +1,5 @@
 local Helpers = Helpers
+local UserInput = UserInput
 
 TemplateParser = require "resty.template"
 AnsiColors = require "ansicolors"
@@ -15,6 +16,11 @@ function Helpers.ParseAndCreateOutputFile(outputFileName, templateName)
 	IO.CreateOutputFile(outputFileName, data)
 end
 
+function Helpers.ParseAndCreateGeneratorFile(language, generatorName, outputFileName, templateName)
+	local data = Helpers.ParseTemplate(templateName)
+	IO.CreateGeneratorFile(language, generatorName, outputFileName, data)
+end
+
 function Helpers.DownloadAndCreateTextFile(url, outputFileName)
 	local text = Downloader.GetTextFile(url)
 	IO.CreateOutputFile(outputFileName, text)
@@ -22,6 +28,11 @@ end
 
 function Helpers.PrintColor(...)
 	print(AnsiColors(...))
+end
+
+function UserInput.Prompt(globalVarName, msg, defaultValue)
+	local defaultValue = defaultValue or ""
+	UserInput.PromptWithDefault(globalVarName, msg, defaultValue)
 end
 
 return Helpers

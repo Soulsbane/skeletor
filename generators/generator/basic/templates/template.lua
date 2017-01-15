@@ -1,7 +1,10 @@
 function OnCreate()
 end
 
-function OnProcessInput(values)
+function OnProcessInput()
+end
+
+function OnFinishedInput()
 end
 
 function OnDestroy()
