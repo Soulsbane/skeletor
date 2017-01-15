@@ -3,7 +3,7 @@ local Success
 function OnCreate()
 end
 
-function OnProcessInput(values)
+function OnFinishedInput(values)
 	Path.CreateDirInOutputDir("source")
 
 	Helpers.ParseAndCreateOutputFile("dub.sdl", "raijin-dub.sdl")
