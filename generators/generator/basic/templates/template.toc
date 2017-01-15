@@ -1,3 +1,3 @@
 ## Author: {{Author}}
-## Name: {{ProjectName}}
+## Name: {{GeneratorName}}
 ## Description: {{Description}}
