@@ -1,4 +1,4 @@
-function OnProcessInput(values)
+function OnFinishedInput(values)
 	--[[print("Called d.raijin generator: ", _G.Author)
 	print("Called d.raijin generator again without _G: ", Author)
 	print("_G.Year is ", _G.Year)
