@@ -29,7 +29,7 @@ class LuaGenerator : LuaAddon
 		setupPackagePaths();
 
 		loadDefaultModules();
-		loadAndExecuteLuaFile(DEFAULT_INIT_FILE_STRING, "init.lua");
+		createAndLoadFile(_Config.getConfigDir("config", "init.lua"), DEFAULT_INIT_FILE_STRING);
 	}
 
 	void destroy()
@@ -73,7 +73,7 @@ class LuaGenerator : LuaAddon
 
 			loadFile(fileName, mainTable_);
 			callFunction("OnCreate");
-			loadAndExecuteLuaFile(DEFAULT_PROMPTS_FILE_STRING, "prompts.lua");
+			createAndLoadFile(_Config.getConfigDir("config", "prompts.lua"), DEFAULT_PROMPTS_FILE_STRING);
 		}
 		else
 		{
@@ -109,23 +109,6 @@ private:
 	{
 		doFile(buildNormalizedPath(paths_.getModuleDir(), "resty", "template.lua"));
 		doFile(buildNormalizedPath(paths_.getModuleDir(), "globals.lua"));
-	}
-
-	void loadAndExecuteLuaFile(const string defaultFileString, const string generatedFileName)
-	{
-		immutable string defaultString = defaultFileString;
-
-		debug
-		{
-			doString(defaultString);
-		}
-		else
-		{
-			immutable string generatedFilePath = buildNormalizedPath(_Config.getConfigDir("config"), generatedFileName);
-
-			ensureFileExists(generatedFilePath, defaultString);
-			doFile(generatedFilePath);
-		}
 	}
 
 	void loadTocFiles()
