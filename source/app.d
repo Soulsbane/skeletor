@@ -1,12 +1,12 @@
 import std.stdio : writeln, write;
-import std.file : exists, SpanMode, dirEntries, getcwd, rmdirRecurse;
+import std.file;
 import std.algorithm;
 import std.array;
 import std.string;
 import std.range;
 import std.path;
 
-import raijin;
+import ctoptions;
 
 import config;
 import inputcollector;
@@ -25,8 +25,12 @@ bool createProjectDir()
 		{
 			return false;
 		}
+		else
+		{
+			path.mkdirRecurse;
+		}
 
-		return ensurePathExists(path);
+		return path.exists;
 	}
 
 	return false;
