@@ -2,7 +2,6 @@ module config;
 
 import std.path : buildNormalizedPath;
 
-import raijin.appconfig;
 import raijin.configpath;
 import raijin.utils.path;
 import raijin.utils.file;
