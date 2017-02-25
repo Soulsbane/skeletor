@@ -5,9 +5,9 @@ import std.file : exists;
 import std.typecons : scoped;
 import std.stdio : writeln;
 
-import raijin.utils.file;
 import raijin.cmdline;
 import raijin.utils.debugtools;
+import dpathutils;
 import luad.all;
 
 import config;

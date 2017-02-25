@@ -2,9 +2,9 @@ module config;
 
 import std.path : buildNormalizedPath;
 
-import raijin.configpath;
+import dpathutils;
+import dfileutils;
 import raijin.utils.path;
-import raijin.utils.file;
 
 import luaaddon.luaconfig;
 
@@ -17,10 +17,10 @@ class SkeletorConfig : LuaConfig
 	{
 		configPath_ = ConfigPath("Raijinsoft", "skeletor");
 
-		immutable string configFilePath = buildNormalizedPath(configPath_.getConfigDir("config"), "config.lua");
+		immutable string configFilePath = buildNormalizedPath(configPath_.getDir("config"), "config.lua");
 		immutable string importConfigString = import("default-config.lua");
 
-		ensurePathExists(configPath_.getConfigDir("generators"));
+		ensurePathExists(configPath_.getDir("generators"));
 		ensureFileExists(configFilePath, importConfigString);
 
 		loadFile(configFilePath);

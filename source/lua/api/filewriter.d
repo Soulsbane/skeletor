@@ -9,7 +9,8 @@ import std.algorithm;
 
 import lua.api.path;
 
-import raijin.utils.file;
+import dfileutils;
+import dpathutils;
 import raijin.utils.path;
 
 void createOutputFile(const string fileName, const string data)

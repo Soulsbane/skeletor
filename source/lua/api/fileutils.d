@@ -6,7 +6,7 @@ module lua.api.fileutils;
 import std.file : copy, PreserveAttributes, getcwd, exists, remove;
 import std.path : baseName, buildNormalizedPath;
 
-import raijin.utils.file : removeFileIfExists;
+import dfileutils;
 import lua.api.path;
 
 void copyFileTo(string from, string to) @trusted

@@ -6,10 +6,11 @@ module lua.api.path;
 import std.file : exists, getcwd, thisExePath;
 import std.path : dirName, buildNormalizedPath;
 
-import raijin.utils.path;
-import raijin.utils.file;
+import dfileutils;
+import dpathutils;
 import config;
 import inputcollector;
+import raijin.utils.path;
 
 struct ApplicationPaths
 {
