@@ -29,7 +29,7 @@ class LuaGenerator : LuaAddon
 		setupPackagePaths();
 
 		loadDefaultModules();
-		createAndLoadFile(_Config.getConfigDir("config", "init.lua"), DEFAULT_INIT_FILE_STRING);
+		createAndLoadFile(_Config.getDir("config", "init.lua"), DEFAULT_INIT_FILE_STRING);
 	}
 
 	void destroy()
@@ -73,7 +73,7 @@ class LuaGenerator : LuaAddon
 
 			loadFile(fileName, mainTable_);
 			callFunction("OnCreate");
-			createAndLoadFile(_Config.getConfigDir("config", "prompts.lua"), DEFAULT_PROMPTS_FILE_STRING);
+			createAndLoadFile(_Config.getDir("config", "prompts.lua"), DEFAULT_PROMPTS_FILE_STRING);
 		}
 		else
 		{
