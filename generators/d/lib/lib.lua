@@ -14,7 +14,7 @@ function OnFinishedInput(values)
 		local fileName = Path.Normalize("source", projectName, projectName .. ".d")
 
 		Helpers.ParseAndCreateOutputFile(fileName, "d.lib.default-lib.d")
-		Helpers.ParseAndCreateOutputFile(Path.Normalize("source", "package.d"), "d.lib.package.d")
+		Helpers.ParseAndCreateOutputFile(Path.Normalize("source", projectName, "package.d"), "d.lib.package.d")
 
 	end
 
