@@ -80,6 +80,7 @@ auto getDirList(const string name, SpanMode mode)
 {
 	auto dirs = dirEntries(name, mode)
 		.filter!(a => a.isDir && !a.name.startsWith("."))
+		//.filter!(a => a.name.baseName != "tests")
 		.array
 		.retro;
 

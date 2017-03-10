@@ -122,6 +122,8 @@ private:
 	void setupAPIFunctions()
 	{
 		registerFunction("GetVersion", &getAPIVersion);
+		registerFunction("GetVersionString", &getAPIVersionString);
+
 		createTable("Helpers", "IO", "UserInput", "Path", "Downloader");
 
 		registerFunction("IO", "ReadText", &readText);
