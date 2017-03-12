@@ -9,6 +9,7 @@ import std.typetuple;
 
 import raijin.utils;
 import lua.api.path;
+import dfileutils.extractor;
 
 enum generatorFilesList =
 [
@@ -18,13 +19,14 @@ enum generatorFilesList =
 	"d/raijin/templates/raijin-gitignore",
 
 	"d/lib/lib.lua",
-	"d/lib/templates/dub.sdl",
-	"d/lib/templates/gitignore",
+	"d/lib/templates/d.lib.default-lib.d",
+	"d/lib/templates/d.lib.dub.sdl",
+	"d/lib/templates/d.lib.gitignore",
 
 	"d/app/app.lua",
-	"d/app/templates/app.d",
-	"d/app/templates/dub.sdl",
-	"d/app/templates/gitignore",
+	"d/app/templates/d.app.app.d",
+	"d/app/templates/d.app.dub.sdl",
+	"d/app/templates/d.app.gitignore",
 
 	"wow/simplecore/templates/addon.lua",
 	"wow/simplecore/templates/template.toc",

@@ -35,7 +35,7 @@ public:
 		}
 		else
 		{
-			return _Config.getConfigDir("generators");
+			return _Config.getDir("generators");
 		}
 	}
 
@@ -47,7 +47,7 @@ public:
 		}
 		else
 		{
-			return _Config.getConfigDir("generators", language);
+			return _Config.getDir("generators", language);
 		}
 	}
 
@@ -59,7 +59,7 @@ public:
 		}
 		else
 		{
-			return _Config.getConfigDir("generators", language, generatorName);
+			return _Config.getDir("generators", language, generatorName);
 		}
 	}
 
@@ -76,7 +76,7 @@ public:
 		}
 		else
 		{
-			return _Config.getConfigDir("modules");
+			return _Config.getDir("modules");
 		}
 	}
 
@@ -88,7 +88,7 @@ public:
 		}
 		else
 		{
-			return _Config.getConfigDir("templates");
+			return _Config.getDir("templates");
 		}
 	}
 

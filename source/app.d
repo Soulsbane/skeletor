@@ -222,7 +222,7 @@ void extract()
 	else
 	{
 		write("Extracting generators...");
-		rmdirRecurse(_Config.getConfigDir("generators"));
+		rmdirRecurse(_Config.getDir("generators"));
 		extractGenerators();
 		writeln("Finished!");
 	}
