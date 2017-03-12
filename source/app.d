@@ -81,10 +81,9 @@ auto getDirList(const string name, SpanMode mode)
 	auto dirs = dirEntries(name, mode)
 		.filter!(a => a.isDir && !a.name.startsWith("."))
 		//.filter!(a => a.name.baseName != "tests")
-		.array
-		.retro;
+		.array;
 
-	return dirs;
+	return sort(dirs);
 }
 
 @CommandHelp("Creates a new project.", ["The programming language in which to generate a project.",
