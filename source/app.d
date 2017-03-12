@@ -11,7 +11,7 @@ import ctoptions;
 import config;
 import inputcollector;
 import lua.generator;
-import lua.api.path;
+import lua.api;
 import lua.extractor;
 import luaaddon.tocparser;
 
@@ -226,6 +226,12 @@ void extract()
 		extractGenerators();
 		writeln("Finished!");
 	}
+}
+
+@CommandName("version") @CommandHelp("Show the API version.")
+void versions()
+{
+	writeln("API Version: ", getAPIVersionString());
 }
 
 void main(string[] arguments)
