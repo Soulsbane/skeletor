@@ -20,6 +20,7 @@ class SkeletorConfig : LuaConfig
 		immutable string configFilePath = buildNormalizedPath(configPath_.getDir("config"), "config.lua");
 		immutable string importConfigString = import("default-config.lua");
 
+		ensurePathExists(configPath_.getDir("config"));
 		ensurePathExists(configPath_.getDir("generators"));
 		ensureFileExists(configFilePath, importConfigString);
 
