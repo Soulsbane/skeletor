@@ -139,7 +139,7 @@ void list(string language = "all")
 		if(language == "all" || name.baseName == language)
 		{
 			++count;
-			writeln(name.baseName);
+			writeln("    ", name.baseName);
 
 			foreach(generatorName; getDirList(buildNormalizedPath(paths.getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
 			{
@@ -154,7 +154,7 @@ void list(string language = "all")
 					description = parser.getValue("Description");
 				}
 
-				writeln(" └─", baseName, " - ", description);
+				writeln("    ├──", baseName, " - ", description);
 			}
 
 			writeln;
