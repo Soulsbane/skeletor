@@ -5,3 +5,5 @@ __dummy.html
 *.obj
 *.a
 __test__library__
+{{ProjectName}}-test-library
+{{ProjectName}}-test-unittest
