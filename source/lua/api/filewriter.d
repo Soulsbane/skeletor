@@ -11,7 +11,6 @@ import lua.api.path;
 
 import dfileutils;
 import dpathutils;
-import raijin.utils.path;
 
 void createOutputFile(const string fileName, const string data)
 {

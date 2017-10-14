@@ -240,4 +240,5 @@ void main(string[] arguments)
 
 	Commander cmd;
 	cmd.process(arguments);
+	writeln();
 }

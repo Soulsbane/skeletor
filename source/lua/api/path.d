@@ -10,7 +10,6 @@ import dfileutils;
 import dpathutils;
 import config;
 import inputcollector;
-import raijin.utils.path;
 
 struct ApplicationPaths
 {

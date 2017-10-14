@@ -7,7 +7,6 @@ import std.algorithm;
 import std.array;
 import std.typetuple;
 
-import raijin.utils;
 import lua.api.path;
 import dfileutils.extractor;
 

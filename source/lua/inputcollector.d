@@ -6,7 +6,6 @@ module inputcollector;
 import std.typecons;
 import std.stdio;
 import std.string;
-import raijin;
 
 alias CollectedValues = Prompt[string];
 private CollectedValues _Values;
