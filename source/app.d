@@ -88,6 +88,7 @@ auto getDirList(const string name, SpanMode mode)
 }
 
 // TODO: Add alias for create called new. This will require a fix in Commander's CommandName
+@CommandName(["new"])
 @CommandHelp("Creates a new project.", ["The programming language in which to generate a project.",
 	"The name of the generator to use to generate a project."])
 void create(string language, string generator)
@@ -103,6 +104,7 @@ void create(string language, string generator)
 	}
 }
 
+@CommandName(["new"])
 @CommandHelp("Creates a new project using the <language>.<generator> format.",
 	["The programming language and generator separated by a dot: <language>.<generator>"])
 void create(string languageAndGenerator)
@@ -120,6 +122,7 @@ void create(string languageAndGenerator)
 
 }
 
+@CommandName(["new"])
 @CommandHelp("Creates a new project using the default language and generator found in config.lua.")
 void create()
 {
@@ -229,7 +232,7 @@ void extract()
 	}
 }
 
-@CommandName("version") @CommandHelp("Show the API version.")
+@CommandName(["version"]) @CommandHelp("Show the API version.")
 void versions()
 {
 	writeln("API Version: ", getAPIVersionString());
