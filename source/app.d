@@ -6,6 +6,7 @@ import std.string;
 import std.range;
 import std.path;
 
+import colored;
 import ctoptions;
 
 import config;
@@ -86,6 +87,7 @@ auto getDirList(const string name, SpanMode mode)
 	return sort(dirs);
 }
 
+// TODO: Add alias for create called new. This will require a fix in Commander's CommandName
 @CommandHelp("Creates a new project.", ["The programming language in which to generate a project.",
 	"The name of the generator to use to generate a project."])
 void create(string language, string generator)
@@ -125,7 +127,7 @@ void create()
 }
 
 @CommandHelp("Lists all the available generators")
-void list(string language = "all")
+void list(string language = "all") // TODO: Colorize output.
 {
 	ApplicationPaths paths;
 
