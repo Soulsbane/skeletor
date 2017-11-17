@@ -29,5 +29,6 @@ public
 	import lua.api.filewriter;
 	import lua.api.fileutils;
 	import lua.api.downloader;
+	import lua.api.process;
 	import lua.api.prompts;
 }
