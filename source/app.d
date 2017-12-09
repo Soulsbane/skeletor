@@ -148,7 +148,7 @@ void list(string language = "all") // TODO: Colorize output.
 
 			foreach(generatorName; getDirList(buildNormalizedPath(paths.getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
 			{
-				TocParser parser;
+				TocParser!() parser;
 				string description = "No description available.";
 				immutable string baseName = generatorName.baseName;
 				immutable string tocFileName = buildNormalizedPath(generatorName, baseName ~ ".toc");
@@ -175,7 +175,7 @@ void list(string language = "all") // TODO: Colorize output.
 @CommandHelp("Provides more information about a generator.")
 void info(string language, string name)
 {
-	TocParser parser;
+	TocParser!() parser;
 	ApplicationPaths paths;
 	immutable string tocFileName = buildNormalizedPath(paths.getGeneratorDirFor(language, name), name ~ ".toc");
 

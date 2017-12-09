@@ -176,7 +176,7 @@ private:
 	string generatorName_;
 	bool generatorLoaded_;
 	bool disableProjectDir_;
-	TocParser toc_;
+	TocParser!() toc_;
 	LuaTable mainTable_;
 	ApplicationPaths paths_;
 }
