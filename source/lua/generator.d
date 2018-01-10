@@ -122,7 +122,7 @@ private:
 		registerFunction("GetVersion", &getAPIVersion);
 		registerFunction("GetVersionString", &getAPIVersionString);
 
-		createTable("Helpers", "IO", "UserInput", "Path", "Downloader");
+		createTable("Helpers", "IO", "UserInput", "Path", "Downloader", "System");
 
 		registerFunction("IO", "ReadText", &readText);
 		registerFunction("IO", "GetLines", &getLines);
@@ -156,6 +156,8 @@ private:
 		registerFunction("Path", "RemoveDirFromOutputDir", &paths_.removeDirFromOutputDir);
 		registerFunction("Path", "DirExists", &paths_.dirExists);
 		registerFunction("Path", "OutputDirExists", &paths_.outputDirExists);
+
+		registerFunction("Process", "WaitForApplication", &waitForApplication);
 
 		registerFunction("DisableProjectDir", &disableProjectDir);
 		registerFunction("IsProjectDirDisabled", &isProjectDirDisabled);
