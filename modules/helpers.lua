@@ -4,6 +4,13 @@ local UserInput = UserInput
 TemplateParser = require "resty.template"
 AnsiColors = require "ansicolors"
 
+--Override resty.templates escape method since we don't need string escaping.
+local function Escape(s, c)
+	return s
+end
+
+TemplateParser.escape = Escape
+
 function Helpers.ParseTemplate(fileName)
 	local func = TemplateParser.compile(Path.Normalize(Path.GetGeneratorTemplatesDir(), fileName))
 	local str = func(_G) --Might be better to put their own table
