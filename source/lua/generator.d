@@ -173,6 +173,28 @@ private:
 		registerPackagePaths(baseModulePath, genModulePath);
 	}
 
+public:
+	override string getAuthor()
+	{
+		return string.init;
+	}
+
+	override string getName()
+	{
+		return string.init;
+	}
+
+	override size_t getVersion()
+	{
+		return 1_000;
+	}
+
+	override string getDescription()
+	{
+		return string.init;
+	}
+
+
 private:
 	string language_;
 	string generatorName_;
