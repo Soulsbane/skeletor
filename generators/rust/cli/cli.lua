@@ -7,7 +7,8 @@ function OnProcessInput()
 end
 
 function OnFinishedInput()
-	--Calls to IO.CreateOutputFile should go.
+	Helpers.ParseAndCreateOutputFile("Cargo.toml", "rust.cli.Cargo.toml")
+	Helpers.ParseAndCreateOutputFile(Path.Normalize("src", "main.rs"), "rust.cli.main.rs")
 end
 
 function OnDestroy()
