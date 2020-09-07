@@ -11,6 +11,7 @@ import ctoptions;
 
 import config;
 import inputcollector;
+import statsformatter;
 import lua.generator;
 import lua.api;
 import lua.extractor;
@@ -133,6 +134,9 @@ void create()
 void list(string language = "all") // TODO: Colorize output.
 {
 	ApplicationPaths paths;
+	auto table = new StatsFormatter(3);
+
+	table.writeHeader("Category", "Name", "Description");
 
 	writeln("The following generators are available:");
 	writeln;
@@ -141,10 +145,11 @@ void list(string language = "all") // TODO: Colorize output.
 
 	foreach(name; getDirList(paths.getBaseGeneratorDir(), SpanMode.shallow))
 	{
+		string currentLanguage = name.baseName;
+
 		if(language == "all" || name.baseName == language)
 		{
 			++count;
-			writeln("    ", name.baseName);
 
 			foreach(generatorName; getDirList(buildNormalizedPath(paths.getBaseGeneratorDir(), name.baseName), SpanMode.shallow))
 			{
@@ -159,16 +164,18 @@ void list(string language = "all") // TODO: Colorize output.
 					description = parser.getValue("Description");
 				}
 
-				writeln("    ├──", baseName, " - ", description);
+				table.addRow(currentLanguage, baseName, description);
 			}
-
-			writeln;
 		}
 	}
 
 	if(count == 0)
 	{
 		writeln("Failed to find any generators for ", language);
+	}
+	else
+	{
+		table.render();
 	}
 }
 
