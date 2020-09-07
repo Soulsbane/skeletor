@@ -134,14 +134,10 @@ void create()
 void list(string language = "all") // TODO: Colorize output.
 {
 	ApplicationPaths paths;
+	size_t count;
 	auto table = new StatsFormatter(3);
 
 	table.writeHeader("Category", "Name", "Description");
-
-	writeln("The following generators are available:");
-	writeln;
-
-	size_t count;
 
 	foreach(name; getDirList(paths.getBaseGeneratorDir(), SpanMode.shallow))
 	{
