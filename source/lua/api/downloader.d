@@ -7,9 +7,9 @@ import std.stdio;
 import std.conv;
 import std.string;
 import std.exception;
-import requests;
+import arsd.http2;
 
 string getTextFile(const string url)
 {
-	return getContent(url).to!string.ifThrown!ConnectError("");
+	return getText(url);
 }
