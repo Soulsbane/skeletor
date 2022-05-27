@@ -14,3 +14,8 @@ dependency "luaaddon" version=">=0.0.0"
 //dependency "arsd-official:http" version="*"
 dependency "arsd-official:http" version="~>10.0.1"
 stringImportPaths "generators" "modules" "source"
+
+/*configuration "static" {
+	targetType "executable"
+	dflags "-static" platform="posix"
+}*/
