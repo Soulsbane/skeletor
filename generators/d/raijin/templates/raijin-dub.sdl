@@ -1,5 +1,0 @@
-name "{{ProjectName}}"
-description "{{Description}}."
-copyright "Copyright © {{Year}}"
-authors "{{Author}}"
-dependency "dapplicationbase" version="*"
