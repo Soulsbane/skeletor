@@ -12,11 +12,6 @@ import dfileutils.extractor;
 
 enum generatorFilesList =
 [
-	"d/raijin/raijin.lua",
-	"d/raijin/templates/raijin-app.d",
-	"d/raijin/templates/raijin-dub.sdl",
-	"d/raijin/templates/raijin-gitignore",
-
 	"d/lib/lib.lua",
 	"d/lib/templates/d.lib.default-lib.d",
 	"d/lib/templates/d.lib.dub.sdl",
